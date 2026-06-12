@@ -1,0 +1,6 @@
+{
+  "name": "AuraReach AI",
+  "description": "A premium multi-user CRM and outreach workspace featuring automated Search-Grounded AI brand research, direct Google Sheets / CSV lead importing, Excel campaign collateral attachments, and smart Gmail campaign dispatching.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,109 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Primitive Definitions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(ownerId) {
+      return isSignedIn() && request.auth.uid == ownerId;
+    }
+
+    // Prevent ID Poisoning and Denial of Wallet size exhaustion
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isVerifiedUser() {
+      return isSignedIn();
+    }
+
+    // Helper functions for validating Campaign structure
+    function isValidCampaign(data) {
+      return data.id is string && data.id.size() <= 128
+        && data.ownerId == request.auth.uid
+        && data.name is string && data.name.size() > 0 && data.name.size() <= 200
+        && data.templateType is string && data.templateType in ["sponsorship", "sales", "information", "invitation", "custom"]
+        && (data.description == null || (data.description is string && data.description.size() <= 1000))
+        && (data.customTemplateSubject == null || (data.customTemplateSubject is string && data.customTemplateSubject.size() <= 500))
+        && (data.customTemplateBody == null || (data.customTemplateBody is string && data.customTemplateBody.size() <= 5000))
+        && (data.variables is map);
+    }
+
+    // Helper functions for validating Lead structure
+    function isValidLead(data) {
+      return data.id is string && data.id.size() <= 128
+        && data.campaignId is string && data.campaignId.size() <= 128
+        && data.ownerId == request.auth.uid
+        // Mandatory boundaries block Denial of Wallet resource attacks
+        && data.name is string && data.name.size() > 0 && data.name.size() <= 200
+        && data.poc is string && data.poc.size() <= 200
+        && data.email is string && data.email.size() > 0 && data.email.size() <= 200
+        && data.category is string && data.category.size() <= 100
+        && data.researchStatus is string && data.researchStatus in ["pending", "researching", "completed", "failed"]
+        && data.emailStatus is string && data.emailStatus in ["pending", "drafted", "sent", "failed"]
+        && data.checked is bool;
+    }
+
+    // Campaigns Matching
+    match /campaigns/{campaignId} {
+      allow get: if isVerifiedUser() && resource.data.ownerId == request.auth.uid;
+      allow list: if isVerifiedUser() && resource.data.ownerId == request.auth.uid;
+      
+      allow create: if isVerifiedUser() 
+        && isValidId(campaignId) 
+        && isValidCampaign(request.resource.data)
+        && request.resource.data.createdAt is string && request.resource.data.createdAt.size() <= 40
+        && request.resource.data.updatedAt is string && request.resource.data.updatedAt.size() <= 40;
+        
+      allow update: if isVerifiedUser()
+        && isValidCampaign(request.resource.data)
+        && request.resource.data.ownerId == resource.data.ownerId
+        && request.resource.data.createdAt == resource.data.createdAt
+        && request.resource.data.updatedAt is string && request.resource.data.updatedAt.size() <= 40
+        && (
+          request.resource.data.diff(resource.data).affectedKeys().hasAny(['name', 'description', 'templateType', 'customTemplateSubject', 'customTemplateBody', 'variables', 'updatedAt'])
+        );
+        
+      allow delete: if isVerifiedUser() && resource.data.ownerId == request.auth.uid;
+      
+      // Leads Matching (Nested path for optimal Master-Gate validation)
+      match /leads/{leadId} {
+        function parentCampaignBelongsToUser() {
+          return get(/databases/$(database)/documents/campaigns/$(campaignId)).data.ownerId == request.auth.uid;
+        }
+
+        allow get: if isVerifiedUser() && parentCampaignBelongsToUser();
+        allow list: if isVerifiedUser() && parentCampaignBelongsToUser();
+        
+        allow create: if isVerifiedUser()
+          && isValidId(leadId)
+          && parentCampaignBelongsToUser()
+          && isValidLead(request.resource.data)
+          && request.resource.data.campaignId == campaignId
+          && request.resource.data.createdAt is string && request.resource.data.createdAt.size() <= 40
+          && request.resource.data.updatedAt is string && request.resource.data.updatedAt.size() <= 40;
+          
+        allow update: if isVerifiedUser()
+          && parentCampaignBelongsToUser()
+          && isValidLead(request.resource.data)
+          && request.resource.data.ownerId == resource.data.ownerId
+          && request.resource.data.campaignId == resource.data.campaignId
+          && request.resource.data.createdAt == resource.data.createdAt
+          && request.resource.data.updatedAt is string && request.resource.data.updatedAt.size() <= 40
+          && (
+            request.resource.data.diff(resource.data).affectedKeys().hasAny(['checked', 'poc', 'email', 'category', 'notes', 'researchStatus', 'emailStatus', 'research', 'draft', 'sentAt', 'updatedAt'])
+          );
+          
+        allow delete: if isVerifiedUser() && parentCampaignBelongsToUser();
+      }
+    }
+  }
+}

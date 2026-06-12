@@ -1,0 +1,125 @@
+{
+  "entities": {
+    "Campaign": {
+      "title": "Campaign",
+      "description": "Custom segment campaign owned by a user supporting dynamic templates.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the campaign"
+        },
+        "ownerId": {
+          "type": "string",
+          "description": "The UID of the Google authorized user who owns this campaign"
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name of the campaign"
+        },
+        "description": {
+          "type": "string",
+          "description": "High-level summary of the target campaign group"
+        },
+        "templateType": {
+          "type": "string",
+          "enum": ["sponsorship", "sales", "information", "invitation", "custom"],
+          "description": "Active narrative intent of outreach template selection"
+        },
+        "customTemplateSubject": {
+          "type": "string",
+          "description": "Optional custom subject preset for bespoke custom campaigns"
+        },
+        "customTemplateBody": {
+          "type": "string",
+          "description": "Optional custom email copy preset with standard dynamic curly bracket variables"
+        },
+        "variables": {
+          "type": "object",
+          "description": "Required personalized host dynamic variables for custom grounding hooks"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["id", "ownerId", "name", "templateType", "variables", "createdAt", "updatedAt"]
+    },
+    "Lead": {
+      "title": "Lead",
+      "description": "Specific client partner target profile associated with a Campaign.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "campaignId": {
+          "type": "string"
+        },
+        "ownerId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "poc": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "checked": {
+          "type": "boolean"
+        },
+        "researchStatus": {
+          "type": "string",
+          "enum": ["pending", "researching", "completed", "failed"]
+        },
+        "emailStatus": {
+          "type": "string",
+          "enum": ["pending", "drafted", "sent", "failed"]
+        },
+        "research": {
+          "type": "object",
+          "description": "Live AI deep brand research metrics and target alignment insights"
+        },
+        "draft": {
+          "type": "object",
+          "description": "Highly tailored drafted subject and personalized pitch text"
+        },
+        "sentAt": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["id", "campaignId", "ownerId", "name", "poc", "email", "category", "researchStatus", "emailStatus", "checked", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/campaigns/{campaignId}": {
+      "schema": "Campaign",
+      "description": "Access to top level campaigns created by the user"
+    },
+    "/campaigns/{campaignId}/leads/{leadId}": {
+      "schema": "Lead",
+      "description": "User specific Leads registered under a distinct campaign path"
+    }
+  }
+}
