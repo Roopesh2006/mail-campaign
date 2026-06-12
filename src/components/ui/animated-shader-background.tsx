@@ -55,7 +55,7 @@ export function AnimatedShaderBackground() {
           float res = mix(
             mix(rand(ip), rand(ip + vec2(1.0, 0.0)), u.x),
             mix(rand(ip + vec2(0.0, 1.0)), rand(ip + vec2(1.0, 1.0)), u.x), u.y);
-          return res Res * res;
+          return res * res;
         }
 
         float fbm(vec2 x) {

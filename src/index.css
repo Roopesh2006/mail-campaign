@@ -17,3 +17,42 @@
   }
 }
 
+/* Global teal scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(20, 184, 166, 0.25) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(20, 184, 166, 0.25);
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(20, 184, 166, 0.45);
+}
+
+/* Text selection */
+::selection {
+  background: rgba(20, 184, 166, 0.25);
+  color: #e2fbf8;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Prevent canvas from causing layout shifts */
+canvas {
+  display: block;
+}

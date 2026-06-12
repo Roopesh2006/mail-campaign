@@ -1,60 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-import {
-  Search,
-  CheckCircle,
-  Clock,
-  Sparkles,
-  Send,
-  LogOut,
-  Mail,
-  User,
-  ExternalLink,
-  Edit2,
-  Trash2,
-  AlertCircle,
-  Check,
-  Building2,
-  Phone,
-  Tag,
-  Eye,
-  RefreshCw,
-  Info,
-  Play,
-  Square as SquareIcon,
-  Pause,
-  Terminal,
-  CheckSquare,
-  Activity,
-  Layers,
-  ChevronRight,
-  Plus,
-  Settings,
-  ChevronDown,
-  FileText,
-  Sliders,
-  Sparkle,
-  Loader2,
-  X,
-  Trophy,
-  Calendar,
-  Zap,
-  TrendingUp,
-  Gift,
-  Globe,
-  Award,
-  MessageSquare,
-  Bot,
-  Paperclip,
-  Table,
-  FileSpreadsheet,
-  UploadCloud,
-  ArrowRight
-} from "lucide-react";
+import { Search, CircleCheck as CheckCircle, Clock, Sparkles, Send, LogOut, Mail, User, ExternalLink, CreditCard as Edit2, Trash2, CircleAlert as AlertCircle, Check, Building2, Phone, Tag, Eye, RefreshCw, Info, Play, Square as SquareIcon, Pause, Terminal, SquareCheck as CheckSquare, Activity, Layers, ChevronRight, Plus, Settings, ChevronDown, FileText, FileSliders as Sliders, Sparkle, Loader as Loader2, X, Trophy, Calendar, Zap, TrendingUp, Gift, Globe, Award, MessageSquare, Bot, Paperclip, Table, FileSpreadsheet, CloudUpload as UploadCloud, ArrowRight } from "lucide-react";
 import * as XLSX from "xlsx";
 import { motion, AnimatePresence } from "motion/react";
 import { SPONSORS_DATA } from "./data/sponsors";
 import { ParticleHero } from "./components/ui/particle-hero";
 import { AnimatedShaderBackground } from "./components/ui/animated-shader-background";
+import { ShaderBackground } from "./components/ui/shader-background";
 import { Campaign, Lead, CampaignVariables, TemplateType, BrandResearch, EmailDraft } from "./types";
 import {
   initAuth,
@@ -1377,8 +1328,8 @@ export default function App() {
   // Loading/Bootstrapping view
   if (isBootstrapping) {
     return (
-      <div id="loader-stage" className="min-h-screen bg-[#070a13] text-slate-100 flex flex-col justify-center items-center font-sans tracking-wide">
-        <Loader2 className="w-12 h-12 text-indigo-400 animate-spin mb-4" />
+      <div id="loader-stage" className="min-h-screen bg-[#040b0f] text-slate-100 flex flex-col justify-center items-center font-sans tracking-wide">
+        <Loader2 className="w-12 h-12 text-teal-400 animate-spin mb-4" />
         <h3 className="text-lg font-medium tracking-tight text-slate-200 m-0">Bootstrapping campaign sandbox...</h3>
         <p className="text-xs text-slate-500 font-mono mt-2">Writing primary isolated indices to your private Firestore instance.</p>
       </div>
@@ -1386,22 +1337,22 @@ export default function App() {
   }
 
   return (
-    <div id="dashboard-root" className="min-h-screen bg-[#05060f]/98 text-slate-100 font-sans flex flex-col antialiased relative overflow-hidden">
+    <div id="dashboard-root" className="min-h-screen bg-[#040b0f] text-slate-100 font-sans flex flex-col antialiased relative overflow-hidden">
       {/* 3D Animated Shader Background */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <AnimatedShaderBackground />
       </div>
 
       {/* 1. TOP HEADER BANNER */}
-      <header className="border-b border-white/[0.06] bg-[#0c0f24]/75 sticky top-0 z-40 backdrop-blur-xl px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
+      <header className="border-b border-teal-900/20 bg-black/70 sticky top-0 z-40 backdrop-blur-2xl px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-indigo-500/10 rounded-lg border border-indigo-500/25 text-indigo-400">
-            <Sparkle className="w-5 h-5 text-indigo-300" />
+          <div className="p-2 bg-teal-500/10 rounded-lg border border-teal-500/25 text-teal-400">
+            <Sparkle className="w-5 h-5 text-teal-300" />
           </div>
           <div>
             <h1 className="text-xl font-bold font-display tracking-tight text-white m-0 flex items-center gap-2">
-              AuraPitch <span className="text-indigo-400 font-normal">360</span>
-              <span className="text-[10px] bg-indigo-900/50 text-indigo-300 border border-indigo-700/50 px-1.5 py-0.5 rounded uppercase font-mono font-bold tracking-wider">Public Engine</span>
+              AuraPitch <span className="text-teal-400 font-normal">360</span>
+              <span className="text-[10px] bg-teal-900/40 text-teal-300 border border-teal-700/40 px-1.5 py-0.5 rounded uppercase font-mono font-bold tracking-wider">Public Engine</span>
             </h1>
             <p className="text-xs text-slate-400 m-0">Isolated Multi-user Live Grounded Outreacher</p>
           </div>
@@ -1409,7 +1360,7 @@ export default function App() {
 
         {/* CAMPAIGN DROPDOWN SELECTOR & CONTROLS */}
         <div className="flex flex-wrap items-center gap-3">
-          <div className="flex items-center gap-2 bg-[#121c30] border border-slate-800 px-3 py-2 rounded-xl">
+          <div className="flex items-center gap-2 bg-black/40 border border-teal-900/40 px-3 py-2 rounded-xl">
             <span className="text-xs text-slate-400 font-semibold uppercase tracking-wider font-mono">Campaign:</span>
             <select
               id="campaign-selector"
@@ -1421,7 +1372,7 @@ export default function App() {
               className="bg-transparent border-none text-slate-200 text-sm font-semibold focus:outline-none cursor-pointer pr-4"
             >
               {campaigns.map((camp) => (
-                <option key={camp.id} value={camp.id} className="bg-[#0e1626] text-slate-200">
+                <option key={camp.id} value={camp.id} className="bg-[#030d14] text-slate-200">
                   {camp.name}
                 </option>
               ))}
@@ -1431,7 +1382,7 @@ export default function App() {
           <button
             id="show-create-campaign-btn"
             onClick={() => setShowCreateCampaignModal(true)}
-            className="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-xl cursor-pointer transition-colors"
+            className="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-white bg-teal-500 hover:bg-teal-400 rounded-xl cursor-pointer transition-colors"
           >
             <Plus className="w-4 h-4" />
             <span>New Campaign</span>
@@ -1440,7 +1391,7 @@ export default function App() {
           <button
             id="show-settings-btn"
             onClick={() => setShowConfigModal(true)}
-            className="p-2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-xl border border-slate-700 transition-colors cursor-pointer"
+            className="p-2 bg-white/[0.04] hover:bg-white/[0.08] text-slate-400 hover:text-white rounded-xl border border-teal-900/30 transition-colors cursor-pointer"
             title="Campaign outreach parameters & dynamic variables"
           >
             <Sliders className="w-4 h-4" />
@@ -1457,8 +1408,8 @@ export default function App() {
           )}
 
           {/* User badge */}
-          <div className="hidden md:flex items-center gap-2 border-l border-slate-800 pl-4">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-blue-500 text-white flex items-center justify-center font-bold text-xs">
+          <div className="hidden md:flex items-center gap-2 border-l border-white/10 pl-4">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-teal-500 to-cyan-500 text-white flex items-center justify-center font-bold text-xs">
               {currentUser?.email?.substring(0, 1).toUpperCase() || "U"}
             </div>
             <div className="text-right">
@@ -1476,9 +1427,9 @@ export default function App() {
       </header>
 
       {/* STATS STRIP */}
-      <section className="bg-[#060919]/45 px-6 py-3 border-b border-white/[0.04] backdrop-blur-md grid grid-cols-2 md:grid-cols-4 gap-4 shadow-sm relative z-10">
+      <section className="bg-black/50 px-6 py-3 border-b border-teal-900/20 backdrop-blur-md grid grid-cols-2 md:grid-cols-4 gap-4 shadow-sm relative z-10">
         <div className="flex items-center gap-3 py-2">
-          <Layers className="text-indigo-400 w-4 h-4" />
+          <Layers className="text-teal-400 w-4 h-4" />
           <div>
             <div className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider font-mono">Targets in Campaign</div>
             <div className="text-sm font-bold text-slate-200">{leads.length}</div>
@@ -1511,17 +1462,17 @@ export default function App() {
       <div className="flex-1 flex flex-col md:flex-row overflow-hidden relative z-10">
         
         {/* LEFT COLUMN: ACTIVE COHORT MANAGES (Leads index spreadsheet) */}
-        <div className="w-full md:w-[45%] lg:w-[40%] bg-[#080b2a]/45 backdrop-blur-md border-r border-white/[0.06] flex flex-col overflow-hidden relative z-10">
+        <div className="w-full md:w-[45%] lg:w-[40%] bg-black/50 backdrop-blur-md border-r border-teal-900/20 flex flex-col overflow-hidden relative z-10">
           
           {/* SEARCH, CATEGORY FILTER & VIEW TABS */}
-          <div className="p-4 bg-[#0c122f]/60 border-b border-white/[0.06] space-y-3">
+          <div className="p-4 bg-black/40 border-b border-white/[0.06] space-y-3">
             <div className="flex items-center justify-between">
               <h3 className="text-sm font-semibold tracking-wider uppercase font-mono text-slate-300 m-0">Directory Leads</h3>
-              <div className="flex gap-1.5 bg-[#141c38]/70 border border-white/[0.05] p-1 rounded-lg overflow-x-auto max-w-full shrink-0">
+              <div className="flex gap-1.5 bg-black/40 border border-white/[0.05] p-1 rounded-lg overflow-x-auto max-w-full shrink-0">
                 <button
                   onClick={() => setActiveTab("database")}
                   className={`px-2.5 py-1 text-xs font-semibold rounded-md transition-all cursor-pointer whitespace-nowrap ${
-                    activeTab === "database" ? "bg-indigo-600 text-white shadow-sm" : "text-slate-400 hover:text-slate-200"
+                    activeTab === "database" ? "bg-teal-500/20 text-teal-300 border border-teal-500/30" : "text-slate-400 hover:text-slate-200"
                   }`}
                 >
                   Workspace
@@ -1529,10 +1480,10 @@ export default function App() {
                 <button
                   onClick={() => setActiveTab("spreadsheets")}
                   className={`px-2.5 py-1 text-xs font-semibold rounded-md transition-all cursor-pointer whitespace-nowrap flex items-center gap-1.5 ${
-                    activeTab === "spreadsheets" ? "bg-indigo-600 text-white shadow-sm" : "text-slate-400 hover:text-slate-200"
+                    activeTab === "spreadsheets" ? "bg-teal-500/20 text-teal-300 border border-teal-500/30" : "text-slate-400 hover:text-slate-200"
                   }`}
                 >
-                  <FileSpreadsheet className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
+                  <FileSpreadsheet className="w-3.5 h-3.5 text-teal-400 shrink-0" />
                   <span>Spreadsheet Hub</span>
                 </button>
                 <button
@@ -1541,7 +1492,7 @@ export default function App() {
                     setRunnerLogs((prev) => prev.length === 0 ? [{ id: "init", time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }), type: "info", message: "Automated batch queue dashboard open. Verify settings, review lists." }] : prev);
                   }}
                   className={`px-2.5 py-1 text-xs font-semibold rounded-md transition-all cursor-pointer whitespace-nowrap ${
-                    activeTab === "runner" ? "bg-indigo-600 text-white shadow-sm" : "text-slate-400 hover:text-slate-200"
+                    activeTab === "runner" ? "bg-teal-500/20 text-teal-300 border border-teal-500/30" : "text-slate-400 hover:text-slate-200"
                   }`}
                 >
                   Outreach Queue
@@ -1550,7 +1501,7 @@ export default function App() {
             </div>
 
             <div className="flex gap-2">
-              <div className="flex-1 relative flex items-center bg-[#0d1526]/80 border border-slate-800 rounded-xl px-3 py-2 text-sm text-slate-300">
+              <div className="flex-1 relative flex items-center bg-black/40 border border-teal-900/40 rounded-xl px-3 py-2 text-sm text-slate-300">
                 <Search className="w-4 h-4 text-slate-400 mr-2" />
                 <input
                   id="search-input"
@@ -1567,7 +1518,7 @@ export default function App() {
                   id="category-filter"
                   value={categoryFilter}
                   onChange={(e) => setCategoryFilter(e.target.value)}
-                  className="bg-[#0d1526] border border-slate-800 text-slate-300 text-xs rounded-xl px-2 focus:outline-none cursor-pointer"
+                  className="bg-black/40 border border-teal-900/40 text-slate-300 text-xs rounded-xl px-2 focus:outline-none cursor-pointer"
                 >
                   {categoriesList.map((cat, idx) => (
                     <option key={idx} value={cat}>
@@ -1581,7 +1532,7 @@ export default function App() {
             <div className="flex items-center justify-between">
               <button
                 onClick={handleToggleAllLeads}
-                className="text-[11px] font-mono font-semibold text-indigo-400 hover:text-indigo-300 flex items-center gap-1 bg-transparent border-none p-0 cursor-pointer"
+                className="text-[11px] font-mono font-semibold text-teal-400 hover:text-teal-300 flex items-center gap-1 bg-transparent border-none p-0 cursor-pointer"
               >
                 {filteredLeads.every((l) => l.checked) ? "✓ Uncheck All" : "☒ Check/Select All"}
               </button>
@@ -1589,16 +1540,16 @@ export default function App() {
               <button
                 id="show-add-lead-btn"
                 onClick={() => setShowAddLeadModal(true)}
-                className="text-xs text-white bg-slate-800 border border-slate-700 py-1 px-2.5 rounded-lg hover:bg-slate-705 flex items-center gap-1 cursor-pointer"
+                className="text-xs text-slate-300 bg-white/[0.04] border border-teal-900/30 py-1 px-2.5 rounded-lg hover:bg-white/[0.08] flex items-center gap-1 cursor-pointer"
               >
-                <Plus className="w-3.5 h-3.5 text-indigo-400" />
+                <Plus className="w-3.5 h-3.5 text-teal-400" />
                 <span>Add lead</span>
               </button>
             </div>
           </div>
 
           {/* SPREADSHEET TABLE OF TARGET LEADS */}
-          <div className="flex-1 overflow-y-auto divide-y divide-slate-800/50">
+          <div className="flex-1 overflow-y-auto divide-y divide-teal-900/20">
             {filteredLeads.length === 0 ? (
               <div className="p-8 text-center text-slate-500 font-mono text-xs">
                 No active target profiles matching filters. Click "Add lead" above to insert.
@@ -1611,14 +1562,14 @@ export default function App() {
                     key={lead.id}
                     onClick={() => setSelectedLead(lead)}
                     className={`flex items-start gap-3 p-4 transition-all duration-150 cursor-pointer border-b border-white/[0.02] ${
-                      isSelected ? "bg-[#1d274f]/55 backdrop-blur-sm border-l-4 border-indigo-400" : "hover:bg-indigo-950/20 border-l-4 border-transparent"
+                      isSelected ? "bg-teal-900/25 backdrop-blur-sm border-l-4 border-teal-400" : "hover:bg-teal-950/20 border-l-4 border-transparent"
                     }`}
                   >
                     <div className="pt-0.5" onClick={(e) => e.stopPropagation()}>
                       <button
                         onClick={() => handleToggleLeadChecked(lead)}
                         className={`p-1 rounded-md border text-white ${
-                          lead.checked ? "bg-indigo-600/20 border-indigo-500/40 text-indigo-400" : "bg-slate-900 border-slate-800 text-slate-600"
+                          lead.checked ? "bg-teal-500/20 border-teal-500/40 text-teal-400" : "bg-black/30 border-white/10 text-slate-600"
                         }`}
                       >
                         <Check className={`w-3.5 h-3.5 transition-transform ${lead.checked ? "scale-100" : "scale-0"}`} />
@@ -1628,7 +1579,7 @@ export default function App() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between">
                         <h4 className="text-sm font-semibold text-slate-100 truncate m-0">{lead.name}</h4>
-                        <span className="text-[9px] uppercase tracking-wider font-mono font-bold bg-[#141b2c] border border-slate-800 text-slate-400 px-1.5 py-0.5 rounded">
+                        <span className="text-[9px] uppercase tracking-wider font-mono font-bold bg-black/30 border border-white/[0.06] text-slate-500 px-1.5 py-0.5 rounded">
                           {lead.category || "n/a"}
                         </span>
                       </div>
@@ -1644,7 +1595,7 @@ export default function App() {
                             <RefreshCw className="w-3 h-3 animate-spin" /> Analyzing
                           </span>
                         ) : (
-                          <span className="text-[10px] text-slate-500 bg-[#121c30]/20 border border-slate-800 px-1.5 py-0.5 rounded font-mono">Not analyzed</span>
+                          <span className="text-[10px] text-slate-500 bg-teal-950/10 border border-teal-900/30 px-1.5 py-0.5 rounded font-mono">Not analyzed</span>
                         )}
 
                         {lead.emailStatus === "sent" ? (
@@ -1656,11 +1607,11 @@ export default function App() {
                             <AlertCircle className="w-3 h-3 text-red-400" /> Failed
                           </span>
                         ) : lead.emailStatus === "drafted" ? (
-                          <span className="text-[10px] text-indigo-400 bg-indigo-950/40 border border-indigo-900/30 px-1.5 py-0.5 rounded flex items-center gap-1 font-mono">
-                            <FileText className="w-3 h-3 text-indigo-400" /> Ready to Send
+                          <span className="text-[10px] text-teal-400 bg-teal-950/30 border border-teal-900/30 px-1.5 py-0.5 rounded flex items-center gap-1 font-mono">
+                            <FileText className="w-3 h-3 text-teal-400" /> Ready to Send
                           </span>
                         ) : (
-                          <span className="text-[10px] text-slate-500 bg-[#121c30]/20 border border-slate-800 px-1.5 py-0.5 rounded font-mono">No Email draft</span>
+                          <span className="text-[10px] text-slate-500 bg-teal-950/10 border border-teal-900/30 px-1.5 py-0.5 rounded font-mono">No Email draft</span>
                         )}
                       </div>
                     </div>
@@ -1683,7 +1634,7 @@ export default function App() {
         </div>
 
         {/* RIGHT COLUMN: WORKSPACE STAGES (Workspace details tab or automated queue terminal logs) */}
-        <main className="flex-1 bg-[#060814]/45 backdrop-blur-md flex flex-col overflow-hidden relative border-l border-white/[0.04]">
+        <main className="flex-1 bg-black/40 backdrop-blur-md flex flex-col overflow-hidden relative border-l border-teal-900/20">
           
           <AnimatePresence mode="wait">
             {activeTab === "database" ? (
@@ -1696,13 +1647,13 @@ export default function App() {
                 className="flex-1 flex flex-col overflow-hidden"
               >
                 {selectedLead ? (
-                  <div className="flex-1 flex flex-col lg:flex-row overflow-hidden divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+                  <div className="flex-1 flex flex-col lg:flex-row overflow-hidden divide-y lg:divide-y-0 lg:divide-x divide-teal-900/20">
                     
                     {/* SUB-SECTION 1: AI BRAND GRAPH RESEARCH */}
                     <div className="w-full lg:w-[50%] flex flex-col overflow-hidden bg-transparent">
                       <div className="p-4 bg-[#0e122d]/45 border-b border-white/[0.06] backdrop-blur-md flex items-center justify-between gap-3">
                         <div className="flex items-center gap-2">
-                          <Activity className="w-4 h-4 text-indigo-400" />
+                          <Activity className="w-4 h-4 text-teal-400" />
                           <h3 className="text-sm font-semibold text-slate-200 uppercase tracking-wider font-mono m-0">
                             Search Grounded Research
                           </h3>
@@ -1711,7 +1662,7 @@ export default function App() {
                           id="trigger-research-btn"
                           disabled={isResearching}
                           onClick={triggerSingleLeadResearch}
-                          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-indigo-200 bg-indigo-900/60 hover:bg-indigo-900 border border-indigo-700/60 rounded-xl cursor-pointer disabled:opacity-55"
+                          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-teal-200 bg-teal-900/40 hover:bg-teal-900/70 border border-teal-700/40 rounded-xl cursor-pointer disabled:opacity-55"
                         >
                           {isResearching ? (
                             <>
@@ -1720,7 +1671,7 @@ export default function App() {
                             </>
                           ) : (
                             <>
-                              <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
+                              <Sparkles className="w-3.5 h-3.5 text-teal-400" />
                               <span>Analyze Brand Details</span>
                             </>
                           )}
@@ -1732,7 +1683,7 @@ export default function App() {
                         {/* HEADER DETAILS CARD */}
                         <div className="p-4 bg-[#0a0d24]/60 backdrop-blur-md rounded-2xl border border-white/[0.05] shadow-lg">
                           <h2 className="text-xl font-bold text-white m-0 tracking-tight font-display">{selectedLead.name}</h2>
-                          <div className="text-xs text-slate-400 mt-1 font-mono">Category: <span className="text-indigo-400 font-semibold">{selectedLead.category}</span> | Main POC: {selectedLead.poc}</div>
+                          <div className="text-xs text-slate-400 mt-1 font-mono">Category: <span className="text-teal-400 font-semibold">{selectedLead.category}</span> | Main POC: {selectedLead.poc}</div>
                           {selectedLead.notes && (
                             <div className="mt-3 p-3 bg-[#141b36]/40 border border-white/[0.04] rounded-xl text-xs leading-relaxed text-slate-300">
                               <strong>Planner Remarks:</strong> {selectedLead.notes}
@@ -1755,7 +1706,7 @@ export default function App() {
                             {/* ABOUT METRIC */}
                             <div className="space-y-2">
                               <div className="flex items-center gap-2 text-xs font-semibold text-slate-100 uppercase tracking-widest font-mono">
-                                <span className="w-1.5 h-1.5 bg-indigo-500 rounded-full" />
+                                <span className="w-1.5 h-1.5 bg-teal-500 rounded-full" />
                                 <span>1. Brand Overview</span>
                               </div>
                               <p className="text-sm text-slate-300 leading-relaxed bg-[#121835]/40 backdrop-blur-sm p-4 border border-white/[0.04] rounded-2xl m-0 shadow-inner">
@@ -1766,13 +1717,13 @@ export default function App() {
                             {/* CORE OFFERINGS */}
                             <div className="space-y-2">
                               <div className="flex items-center gap-2 text-xs font-semibold text-slate-100 uppercase tracking-widest font-mono">
-                                <span className="w-1.5 h-1.5 bg-indigo-500 rounded-full" />
+                                <span className="w-1.5 h-1.5 bg-teal-500 rounded-full" />
                                 <span>2. Distinct Key Offerings</span>
                               </div>
                               <div className="grid grid-cols-1 gap-2.5">
                                 {selectedLead.research.keyOfferings.map((offering, idx) => (
                                   <div key={idx} className="flex items-center gap-2.5 p-3 bg-[#111634]/50 rounded-xl border border-white/[0.04] backdrop-blur-sm text-xs text-slate-200 shadow-sm transition-all hover:bg-[#181f45]/60">
-                                    <span className="w-5 h-5 rounded-full bg-indigo-900/40 text-indigo-300 flex items-center justify-center font-mono font-bold text-[10px]">{idx + 1}</span>
+                                    <span className="w-5 h-5 rounded-full bg-teal-900/40 text-teal-300 flex items-center justify-center font-mono font-bold text-[10px]">{idx + 1}</span>
                                     <span>{offering}</span>
                                   </div>
                                 ))}
@@ -1782,7 +1733,7 @@ export default function App() {
                             {/* CORE CUSTOMERS */}
                             <div className="space-y-2">
                               <div className="flex items-center gap-2 text-xs font-semibold text-slate-100 uppercase tracking-widest font-mono">
-                                <span className="w-1.5 h-1.5 bg-indigo-500 rounded-full" />
+                                <span className="w-1.5 h-1.5 bg-teal-500 rounded-full" />
                                 <span>3. Target Audience</span>
                               </div>
                               <p className="text-sm text-slate-300 leading-relaxed bg-[#121835]/40 backdrop-blur-sm p-4 border border-white/[0.04] rounded-2xl m-0 shadow-inner">
@@ -1816,10 +1767,10 @@ export default function App() {
                             {selectedLead.research.hackathonAlignment && (
                               <div className="space-y-2">
                                 <div className="flex items-center gap-2 text-xs font-semibold text-slate-100 uppercase tracking-widest font-mono">
-                                  <span className="w-1.5 h-1.5 bg-indigo-500 rounded-full" />
+                                  <span className="w-1.5 h-1.5 bg-teal-500 rounded-full" />
                                   <span>6. Outreach Alignment Mating</span>
                                 </div>
-                                <p className="text-sm text-slate-300 leading-relaxed bg-[#101726]/40 p-4 border border-slate-800/50 rounded-2xl m-0 shadow-inner">
+                                <p className="text-sm text-slate-300 leading-relaxed bg-[#101726]/40 p-4 border border-teal-900/30 rounded-2xl m-0 shadow-inner">
                                   {selectedLead.research.hackathonAlignment}
                                 </p>
                               </div>
@@ -1827,7 +1778,7 @@ export default function App() {
 
                           </div>
                         ) : (
-                          <div className="h-48 border border-dashed border-slate-800 rounded-2xl flex flex-col justify-center items-center text-slate-500 text-center font-mono text-xs px-6 py-4">
+                          <div className="h-48 border border-dashed border-teal-900/30 rounded-2xl flex flex-col justify-center items-center text-slate-500 text-center font-mono text-xs px-6 py-4">
                             <Sparkles className="w-8 h-8 text-slate-600 mb-2" />
                             <span>No Grounded Analytics generated yet</span>
                             <span className="mt-1 text-[10px] text-slate-600">Click "Analyze Brand Details" above to trigger Gemini 3.5 live Google Search research</span>
@@ -1837,11 +1788,11 @@ export default function App() {
                     </div>
                     
                     {/* SUB-SECTION 2: DRAFT REVIEW & REAL DISPATCH TERMINAL */}
-                    <div className="w-full lg:w-[50%] flex flex-col overflow-hidden bg-indigo-950/[0.04] border-l border-white/[0.04]">
+                    <div className="w-full lg:w-[50%] flex flex-col overflow-hidden bg-teal-950/[0.04] border-l border-white/[0.04]">
                       
                       <div className="p-4 bg-[#0e122d]/45 border-b border-white/[0.06] backdrop-blur-md flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                          <Mail className="w-4 h-4 text-indigo-400" />
+                          <Mail className="w-4 h-4 text-teal-400" />
                           <h3 className="text-sm font-semibold text-slate-200 uppercase tracking-wider font-mono m-0">
                             Proposal Mail Pitch Review
                           </h3>
@@ -1849,7 +1800,7 @@ export default function App() {
                         {selectedLead.draft && (
                           <button
                             onClick={handleSaveLeadDraftEdits}
-                            className="bg-slate-800 hover:bg-slate-700 text-slate-300 py-1 px-2.5 rounded-lg text-xs font-semibold m-0 cursor-pointer"
+                            className="bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 hover:text-white py-1 px-2.5 rounded-lg text-xs font-semibold m-0 cursor-pointer border border-teal-900/30"
                           >
                             Save Edits
                           </button>
@@ -1877,7 +1828,7 @@ export default function App() {
                             
                             <div className="space-y-1">
                               <label className="text-[10px] uppercase tracking-wider font-semibold font-mono text-slate-400">Recipient Email</label>
-                              <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-3 text-xs text-indigo-400 font-mono">
+                              <div className="bg-black/30 border border-teal-900/40 rounded-xl p-3 text-xs text-teal-400 font-mono">
                                 {selectedLead.email}
                               </div>
                             </div>
@@ -1889,7 +1840,7 @@ export default function App() {
                                 type="text"
                                 value={editSubject}
                                 onChange={(e) => setEditSubject(e.target.value)}
-                                className="w-full bg-slate-900/80 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-indigo-500 font-semibold"
+                                className="w-full bg-black/30 border border-teal-900/40 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-teal-500/60 font-semibold"
                               />
                             </div>
 
@@ -1900,22 +1851,22 @@ export default function App() {
                                 rows={14}
                                 value={editBody}
                                 onChange={(e) => setEditBody(e.target.value)}
-                                className="w-full bg-slate-900/80 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 font-sans leading-relaxed whitespace-pre-wrap"
+                                className="w-full bg-black/30 border border-teal-900/40 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-teal-500/60 font-sans leading-relaxed whitespace-pre-wrap"
                               />
                             </div>
 
                             {activeCampaign?.variables?.attachmentName && (
-                              <div className="flex items-center justify-between p-2.5 bg-indigo-950/20 border border-indigo-900/35 rounded-xl">
+                              <div className="flex items-center justify-between p-2.5 bg-teal-950/20 border border-teal-900/30 rounded-xl">
                                 <div className="flex items-center gap-2 text-xs">
-                                  <Paperclip className="w-3.5 h-3.5 text-indigo-400" />
-                                  <span className="text-slate-300">Syncing CRM Collateral: <strong className="text-indigo-300 font-mono text-[10.5px]">{activeCampaign.variables.attachmentName}</strong></span>
+                                  <Paperclip className="w-3.5 h-3.5 text-teal-400" />
+                                  <span className="text-slate-300">Syncing CRM Collateral: <strong className="text-teal-300 font-mono text-[10.5px]">{activeCampaign.variables.attachmentName}</strong></span>
                                 </div>
                                 {activeCampaign.variables.attachmentUrl && (
                                   <a
                                     href={activeCampaign.variables.attachmentUrl}
                                     target="_blank"
                                     rel="noreferrer"
-                                    className="text-[10px] text-indigo-400 hover:text-indigo-300 flex items-center gap-1 hover:underline font-mono"
+                                    className="text-[10px] text-teal-400 hover:text-teal-300 flex items-center gap-1 hover:underline font-mono"
                                   >
                                     <span>Source Google Sheet</span>
                                     <ExternalLink className="w-2.5 h-2.5" />
@@ -1937,7 +1888,7 @@ export default function App() {
                               className={`w-full flex items-center justify-center gap-2 py-3 px-4 font-semibold rounded-xl text-xs uppercase tracking-wider cursor-pointer shadow-lg transition-transform ${
                                 selectedLead.emailStatus === "sent"
                                   ? "bg-slate-800 text-slate-500 border border-slate-700 pointer-events-none"
-                                  : "bg-indigo-600 hover:bg-indigo-500 text-white hover:scale-[1.01] active:scale-[0.98]"
+                                  : "bg-teal-500 hover:bg-teal-400 text-white hover:scale-[1.01] active:scale-[0.98]"
                               }`}
                             >
                               {isSending ? (
@@ -1952,7 +1903,7 @@ export default function App() {
                                 </>
                               ) : (
                                 <>
-                                  <Send className="w-4 h-4 text-indigo-300" />
+                                  <Send className="w-4 h-4 text-teal-300" />
                                   <span>Dispatch Email via Gmail (SMTP)</span>
                                 </>
                               )}
@@ -1960,7 +1911,7 @@ export default function App() {
 
                           </div>
                         ) : (
-                          <div className="h-48 border border-dashed border-slate-800 rounded-2xl flex flex-col justify-center items-center text-slate-500 text-center font-mono text-xs px-6 py-4">
+                          <div className="h-48 border border-dashed border-teal-900/30 rounded-2xl flex flex-col justify-center items-center text-slate-500 text-center font-mono text-xs px-6 py-4">
                             <Sparkles className="w-8 h-8 text-slate-600 mb-2" />
                             <span>No dynamic draft prepared</span>
                             <span className="mt-1 text-[10px] text-slate-600">Analyze brand details first to automatically draft personalized proposals</span>
@@ -1973,10 +1924,17 @@ export default function App() {
 
                   </div>
                 ) : (
-                  <div className="flex-1 flex flex-col justify-center items-center text-slate-500 text-center p-8">
-                    <Building2 className="w-12 h-12 text-slate-700 animate-pulse mb-3" />
-                    <h3 className="text-base text-slate-300 m-0">User Campaign Workspace Empty</h3>
-                    <p className="text-xs text-slate-500 font-mono mt-1">Please select another Campaign or click "Add lead" on the left panel to insert targets.</p>
+                  <div className="flex-1 flex flex-col justify-center items-center text-slate-500 text-center p-8 relative overflow-hidden">
+                    <div className="absolute inset-0 opacity-20 pointer-events-none">
+                      <ShaderBackground />
+                    </div>
+                    <div className="relative z-10 flex flex-col items-center gap-3">
+                      <div className="w-16 h-16 rounded-2xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center">
+                        <Building2 className="w-8 h-8 text-teal-500/60" />
+                      </div>
+                      <h3 className="text-base text-slate-300 m-0 font-semibold">Workspace Empty</h3>
+                      <p className="text-xs text-slate-500 font-mono mt-0 max-w-xs leading-relaxed">Select a Campaign or click "Add lead" on the left panel to insert targets.</p>
+                    </div>
                   </div>
                 )}
               </motion.div>
@@ -1987,13 +1945,13 @@ export default function App() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.15 }}
-                className="flex-1 flex flex-col overflow-hidden bg-[#070b13]"
+                className="flex-1 flex flex-col overflow-hidden bg-transparent"
               >
                 {/* Header */}
-                <div className="p-5 bg-[#0d1322] border-b border-slate-800/80 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div className="p-5 bg-black/40 backdrop-blur-md border-b border-teal-900/30 flex flex-col md:flex-row md:items-center justify-between gap-4">
                   <div>
                     <div className="flex items-center gap-2">
-                      <FileSpreadsheet className="w-5 h-5 text-indigo-400" />
+                      <FileSpreadsheet className="w-5 h-5 text-teal-400" />
                       <h2 className="text-lg font-bold text-slate-100 m-0 tracking-tight font-display">
                         AuraReach Spreadsheet Hub
                       </h2>
@@ -2005,8 +1963,8 @@ export default function App() {
 
                   {/* Attachment indicator if configured */}
                   {activeCampaign?.variables?.attachmentName ? (
-                    <div className="flex items-center gap-2 px-3 py-1.5 bg-indigo-950/35 border border-indigo-500/20 rounded-xl text-xs text-indigo-300">
-                      <Paperclip className="w-3.5 h-3.5 text-indigo-400 animate-bounce" />
+                    <div className="flex items-center gap-2 px-3 py-1.5 bg-teal-950/25 border border-teal-500/20 rounded-xl text-xs text-teal-300">
+                      <Paperclip className="w-3.5 h-3.5 text-teal-400 animate-bounce" />
                       <span>Attached: <strong className="text-white">{activeCampaign.variables.attachmentName}</strong></span>
                     </div>
                   ) : (
@@ -2021,7 +1979,7 @@ export default function App() {
                   <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
 
                     {/* METHOD A: SECURE GOOGLE SHEETS LIVE SYNC */}
-                    <div className="bg-[#0b0f19]/90 border border-slate-800/80 rounded-2xl p-6 space-y-4 shadow-sm hover:shadow-indigo-500/5 transition-all">
+                    <div className="bg-black/40 backdrop-blur-md border border-teal-900/30 rounded-2xl p-6 space-y-4 shadow-sm hover:shadow-teal-500/5 transition-all">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2.5">
                           <div className="w-9 h-9 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400">
@@ -2032,7 +1990,7 @@ export default function App() {
                             <p className="text-[10px] text-emerald-405 uppercase tracking-widest font-mono font-bold">Authorized API Import</p>
                           </div>
                         </div>
-                        <span className="text-[10px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded font-mono">OAuth 2.0</span>
+                        <span className="text-[10px] bg-teal-950/30 text-teal-400 px-2 py-0.5 rounded font-mono border border-teal-900/30">OAuth 2.0</span>
                       </div>
 
                       <p className="text-xs text-slate-400 leading-relaxed">
@@ -2047,7 +2005,7 @@ export default function App() {
                             placeholder="https://docs.google.com/spreadsheets/d/your-spreadsheet-id/edit..."
                             value={sheetUrl}
                             onChange={(e) => setSheetUrl(e.target.value)}
-                            className="w-full bg-[#121c30]/50 border border-slate-850 focus:border-indigo-500 rounded-xl p-3 text-xs text-white focus:outline-none font-mono"
+                            className="w-full bg-black/30 border border-teal-900/40 focus:border-teal-500/60 rounded-xl p-3 text-xs text-white focus:outline-none font-mono"
                           />
                         </div>
 
@@ -2059,7 +2017,7 @@ export default function App() {
                               placeholder="Sheet1!A2:E25"
                               value={sheetRange}
                               onChange={(e) => setSheetRange(e.target.value)}
-                              className="w-full bg-[#121c30]/50 border border-slate-850 focus:border-indigo-500 rounded-xl p-3 text-xs text-white font-mono focus:outline-none"
+                              className="w-full bg-black/30 border border-teal-900/40 focus:border-teal-500/60 rounded-xl p-3 text-xs text-white font-mono focus:outline-none"
                             />
                           </div>
                           <div className="flex items-end">
@@ -2067,7 +2025,7 @@ export default function App() {
                               id="sheets-sync-btn"
                               disabled={isSyncingSheet}
                               onClick={handleGoogleSheetsLiveFetch}
-                              className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3 px-4 rounded-xl text-xs uppercase tracking-wider cursor-pointer shadow-lg disabled:opacity-50 transition-colors flex items-center justify-center gap-1.5"
+                              className="w-full bg-teal-500 hover:bg-teal-400 text-white font-semibold py-3 px-4 rounded-xl text-xs uppercase tracking-wider cursor-pointer shadow-lg disabled:opacity-50 transition-colors flex items-center justify-center gap-1.5"
                             >
                               {isSyncingSheet ? (
                                 <>
@@ -2087,24 +2045,24 @@ export default function App() {
                     </div>
 
                     {/* METHOD B: LOCAL EXCEL & CSV DRAG-&-DROP */}
-                    <div className="bg-[#0b0f19]/90 border border-slate-800/80 rounded-2xl p-6 space-y-4 shadow-sm hover:shadow-indigo-500/5 transition-all">
+                    <div className="bg-black/40 backdrop-blur-md border border-teal-900/30 rounded-2xl p-6 space-y-4 shadow-sm hover:shadow-teal-500/5 transition-all">
                       <div className="flex items-center gap-2.5">
-                        <div className="w-9 h-9 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400">
+                        <div className="w-9 h-9 rounded-xl bg-teal-500/10 flex items-center justify-center text-teal-400">
                           <UploadCloud className="w-5 h-5" />
                         </div>
                         <div>
                           <h3 className="text-sm font-bold text-slate-200 m-0">Excel & CSV File Drop</h3>
-                          <p className="text-[10px] text-indigo-400 uppercase tracking-widest font-mono font-bold">Local File Parsing Engine</p>
+                          <p className="text-[10px] text-teal-400 uppercase tracking-widest font-mono font-bold">Local File Parsing Engine</p>
                         </div>
                       </div>
 
                       <p className="text-xs text-slate-400 leading-relaxed">
-                        Directly parse local Excel spreadsheets (<span className="font-mono text-indigo-300">.xlsx, .xls</span>) or plain comma-separated values (<span className="font-mono text-indigo-300">.csv</span>) instantaneously client-side.
+                        Directly parse local Excel spreadsheets (<span className="font-mono text-teal-300">.xlsx, .xls</span>) or plain comma-separated values (<span className="font-mono text-teal-300">.csv</span>) instantaneously client-side.
                       </p>
 
                       <div className="pt-2">
-                        <label className="flex flex-col justify-center items-center h-28 border border-dashed border-slate-800 hover:border-indigo-500/60 rounded-2xl p-4 cursor-pointer bg-[#0e1626]/20 transition-all group">
-                          <FileSpreadsheet className="w-8 h-8 text-slate-500 group-hover:text-indigo-400 transition-colors mb-2" />
+                        <label className="flex flex-col justify-center items-center h-28 border border-dashed border-teal-900/40 hover:border-teal-500/60 rounded-2xl p-4 cursor-pointer bg-teal-950/10 transition-all group">
+                          <FileSpreadsheet className="w-8 h-8 text-slate-500 group-hover:text-teal-400 transition-colors mb-2" />
                           <span className="text-xs text-slate-400 group-hover:text-slate-200">Drag or select spreadsheet file</span>
                           <span className="text-[9px] text-slate-600 font-mono mt-1">Accepts XLSX, XLS, CSV format</span>
                           <input
@@ -2141,21 +2099,21 @@ export default function App() {
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="bg-[#0b0f19] border border-slate-800 rounded-2xl p-6 space-y-6"
+                      className="bg-black/40 backdrop-blur-md border border-teal-900/30 rounded-2xl p-6 space-y-6"
                     >
-                      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+                      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-teal-900/30 pb-4">
                         <div>
                           <h3 className="text-sm font-bold text-slate-200 m-0 font-display tracking-tight">Interactive Column Mapping Assigner</h3>
                           <p className="text-xs text-slate-400 mt-1">Assign headers to target lead variables in AuraReach AI.</p>
                         </div>
                         <div className="flex items-center gap-3">
                           <div className="text-xs text-slate-400 font-mono">
-                            Loaded Targets: <strong className="text-indigo-400 text-sm">{excelRows.length} rows</strong>
+                            Loaded Targets: <strong className="text-teal-400 text-sm">{excelRows.length} rows</strong>
                           </div>
                           <button
                             onClick={handleSpreadsheetImportSave}
                             disabled={isSyncingSheet}
-                            className="bg-indigo-600 hover:bg-indigo-500 font-semibold py-2 px-4 rounded-xl text-xs uppercase text-white tracking-wider cursor-pointer shadow-md disabled:opacity-50 flex items-center gap-1.5"
+                            className="bg-teal-500 hover:bg-teal-400 font-semibold py-2 px-4 rounded-xl text-xs uppercase text-white tracking-wider cursor-pointer shadow-md disabled:opacity-50 flex items-center gap-1.5"
                           >
                             {isSyncingSheet ? (
                               <>
@@ -2175,11 +2133,11 @@ export default function App() {
                       {/* Selectors list */}
                       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                         <div className="space-y-1">
-                          <label className="text-[10px] uppercase font-mono text-indigo-400 font-semibold font-display">1. Company/Brand</label>
+                          <label className="text-[10px] uppercase font-mono text-teal-400 font-semibold font-display">1. Company/Brand</label>
                           <select
                             value={columnMapping.nameIdx}
                             onChange={(e) => setColumnMapping(prev => ({ ...prev, nameIdx: parseInt(e.target.value) }))}
-                            className="w-full bg-[#121c30] border border-slate-800 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 font-mono"
+                            className="w-full bg-black/30 border border-teal-900/40 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-teal-500/60 font-mono"
                           >
                             {excelHeaders.map((h, i) => (
                               <option key={i} value={i}>Col {i + 1}: {h}</option>
@@ -2188,11 +2146,11 @@ export default function App() {
                         </div>
 
                         <div className="space-y-1">
-                          <label className="text-[10px] uppercase font-mono text-indigo-400 font-semibold font-display">2. POC Manager</label>
+                          <label className="text-[10px] uppercase font-mono text-teal-400 font-semibold font-display">2. POC Manager</label>
                           <select
                             value={columnMapping.pocIdx}
                             onChange={(e) => setColumnMapping(prev => ({ ...prev, pocIdx: parseInt(e.target.value) }))}
-                            className="w-full bg-[#121c30] border border-slate-800 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 font-mono"
+                            className="w-full bg-black/30 border border-teal-900/40 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-teal-500/60 font-mono"
                           >
                             {excelHeaders.map((h, i) => (
                               <option key={i} value={i}>Col {i + 1}: {h}</option>
@@ -2201,11 +2159,11 @@ export default function App() {
                         </div>
 
                         <div className="space-y-1">
-                          <label className="text-[10px] uppercase font-mono text-indigo-400 font-semibold font-display">3. Target Email</label>
+                          <label className="text-[10px] uppercase font-mono text-teal-400 font-semibold font-display">3. Target Email</label>
                           <select
                             value={columnMapping.emailIdx}
                             onChange={(e) => setColumnMapping(prev => ({ ...prev, emailIdx: parseInt(e.target.value) }))}
-                            className="w-full bg-[#121c30] border border-slate-800 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 font-mono"
+                            className="w-full bg-black/30 border border-teal-900/40 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-teal-500/60 font-mono"
                           >
                             {excelHeaders.map((h, i) => (
                               <option key={i} value={i}>Col {i + 1}: {h}</option>
@@ -2214,11 +2172,11 @@ export default function App() {
                         </div>
 
                         <div className="space-y-1">
-                          <label className="text-[10px] uppercase font-mono text-indigo-400 font-semibold font-display">4. Sector/Stream</label>
+                          <label className="text-[10px] uppercase font-mono text-teal-400 font-semibold font-display">4. Sector/Stream</label>
                           <select
                             value={columnMapping.categoryIdx}
                             onChange={(e) => setColumnMapping(prev => ({ ...prev, categoryIdx: parseInt(e.target.value) }))}
-                            className="w-full bg-[#121c30] border border-slate-800 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 font-mono"
+                            className="w-full bg-black/30 border border-teal-900/40 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-teal-500/60 font-mono"
                           >
                             {excelHeaders.map((h, i) => (
                               <option key={i} value={i}>Col {i + 1}: {h}</option>
@@ -2227,11 +2185,11 @@ export default function App() {
                         </div>
 
                         <div className="space-y-1">
-                          <label className="text-[10px] uppercase font-mono text-indigo-400 font-semibold font-display">5. Remarks/Notes</label>
+                          <label className="text-[10px] uppercase font-mono text-teal-400 font-semibold font-display">5. Remarks/Notes</label>
                           <select
                             value={columnMapping.notesIdx}
                             onChange={(e) => setColumnMapping(prev => ({ ...prev, notesIdx: parseInt(e.target.value) }))}
-                            className="w-full bg-[#121c30] border border-slate-800 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 font-mono"
+                            className="w-full bg-black/30 border border-teal-900/40 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-teal-500/60 font-mono"
                           >
                             {excelHeaders.map((h, i) => (
                               <option key={i} value={i}>Col {i + 1}: {h}</option>
@@ -2241,10 +2199,10 @@ export default function App() {
                       </div>
 
                       {/* Row Grid Preview */}
-                      <div className="border border-slate-800 rounded-xl overflow-hidden max-h-72 overflow-y-auto">
+                      <div className="border border-teal-900/30 rounded-xl overflow-hidden max-h-72 overflow-y-auto">
                         <table className="w-full text-left border-collapse">
                           <thead>
-                            <tr className="bg-[#121c30] text-slate-300 text-[10px] tracking-wider font-mono font-bold border-b border-slate-800">
+                            <tr className="bg-teal-950/30 text-slate-300 text-[10px] tracking-wider font-mono font-bold border-b border-teal-900/30">
                               <th className="p-3">#</th>
                               <th className="p-3 font-display">Assigned Company</th>
                               <th className="p-3 font-display">Assigned POC</th>
@@ -2253,15 +2211,15 @@ export default function App() {
                               <th className="p-3 font-display">Assigned Notes</th>
                             </tr>
                           </thead>
-                          <tbody className="divide-y divide-slate-800/60 font-sans text-xs text-slate-300">
+                          <tbody className="divide-y divide-teal-900/20 font-sans text-xs text-slate-300">
                             {excelRows.map((row, r_idx) => (
-                              <tr key={r_idx} className="hover:bg-slate-900/40">
+                              <tr key={r_idx} className="hover:bg-teal-950/10">
                                 <td className="p-3 text-slate-500 font-mono">{r_idx + 1}</td>
                                 <td className="p-3 font-semibold text-white">{String(row[columnMapping.nameIdx] || "n/a")}</td>
                                 <td className="p-3">{String(row[columnMapping.pocIdx] || "n/a")}</td>
-                                <td className="p-3 font-mono text-indigo-300">{String(row[columnMapping.emailIdx] || "n/a")}</td>
+                                <td className="p-3 font-mono text-teal-300">{String(row[columnMapping.emailIdx] || "n/a")}</td>
                                 <td className="p-3">
-                                  <span className="bg-slate-800 border border-slate-750 text-slate-300 rounded px-1.5 py-0.5 text-[10px] font-mono">
+                                  <span className="bg-teal-950/30 border border-teal-900/30 text-slate-300 rounded px-1.5 py-0.5 text-[10px] font-mono">
                                     {String(row[columnMapping.categoryIdx] || "n/a")}
                                   </span>
                                 </td>
@@ -2275,10 +2233,10 @@ export default function App() {
                   )}
 
                   {/* SECTION 3: ATTACHMENTS & COLLATERAL DOCUMENTS MANAGER */}
-                  <div className="p-6 bg-[#0c1220] border border-slate-800 rounded-2xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                  <div className="p-6 bg-black/40 backdrop-blur-md border border-teal-900/30 rounded-2xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                     <div className="lg:col-span-4 space-y-3">
                       <div className="flex items-center gap-2">
-                        <Paperclip className="w-5 h-5 text-indigo-400" />
+                        <Paperclip className="w-5 h-5 text-teal-400" />
                         <h4 className="text-sm font-bold text-slate-200 uppercase tracking-widest font-mono m-0 font-display">Pitch Collateral</h4>
                       </div>
                       <p className="text-xs text-slate-400 leading-relaxed">
@@ -2286,12 +2244,12 @@ export default function App() {
                       </p>
                       
                       {activeCampaign?.variables?.attachmentName ? (
-                        <div className="p-4 bg-[#141d30]/60 border border-indigo-500/20 rounded-xl text-xs space-y-2">
+                        <div className="p-4 bg-teal-950/20 border border-teal-500/20 rounded-xl text-xs space-y-2">
                           <div className="font-semibold text-slate-300 flex items-center gap-1.5">
-                            <div className="w-2.5 h-2.5 rounded-full bg-indigo-500 animate-pulse" />
+                            <div className="w-2.5 h-2.5 rounded-full bg-teal-500 animate-pulse" />
                             Active Document Linked
                           </div>
-                          <div className="text-slate-200 break-all bg-slate-950 p-2 rounded border border-slate-800 font-mono text-[10px]">
+                          <div className="text-slate-200 break-all bg-black/40 p-2 rounded border border-teal-900/30 font-mono text-[10px]">
                             {activeCampaign.variables.attachmentName}
                           </div>
                           {activeCampaign.variables.attachmentUrl && (
@@ -2299,7 +2257,7 @@ export default function App() {
                               href={activeCampaign.variables.attachmentUrl}
                               target="_blank"
                               rel="noreferrer"
-                              className="text-indigo-450 hover:text-indigo-350 hover:underline inline-flex items-center gap-1 font-semibold"
+                              className="text-teal-400 hover:text-teal-300 hover:underline inline-flex items-center gap-1 font-semibold"
                             >
                               <span>Launch Attached Source</span>
                               <ExternalLink className="w-3.5 h-3.5" />
@@ -2307,13 +2265,13 @@ export default function App() {
                           )}
                         </div>
                       ) : (
-                        <div className="p-4 bg-slate-900/40 border border-slate-800 rounded-xl text-xs text-slate-500 italic font-mono text-center">
+                        <div className="p-4 bg-black/30 border border-teal-900/30 rounded-xl text-xs text-slate-500 italic font-mono text-center">
                           No campaign spreadsheets mapped. Include a collateral link on the form.
                         </div>
                       )}
                     </div>
 
-                    <div className="lg:col-span-8 bg-[#090f1d] border border-slate-800 rounded-2xl p-5 space-y-4">
+                    <div className="lg:col-span-8 bg-black/40 border border-teal-900/30 rounded-2xl p-5 space-y-4">
                       <h5 className="text-xs font-bold text-slate-300 m-0 font-mono uppercase tracking-wider">Configure Campaign Attached Document</h5>
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -2324,7 +2282,7 @@ export default function App() {
                             placeholder="e.g. sponsorship_evaluation_matrix_2026.xlsx"
                             value={editAttachmentName}
                             onChange={(e) => setEditAttachmentName(e.target.value)}
-                            className="w-full bg-[#1e293b] border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-indigo-500 font-mono"
+                            className="w-full bg-white/[0.04] border border-white/10 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-teal-500/60 font-mono"
                           />
                         </div>
 
@@ -2335,7 +2293,7 @@ export default function App() {
                             placeholder="https://docs.google.com/spreadsheets/d/..."
                             value={editAttachmentUrl}
                             onChange={(e) => setEditAttachmentUrl(e.target.value)}
-                            className="w-full bg-[#1e293b] border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-indigo-500 font-mono"
+                            className="w-full bg-white/[0.04] border border-white/10 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-teal-500/60 font-mono"
                           />
                         </div>
                       </div>
@@ -2343,7 +2301,7 @@ export default function App() {
                       <div className="flex justify-end gap-3 pt-2">
                         <button
                           onClick={handleSaveCampaignConfig}
-                          className="bg-indigo-600 hover:bg-indigo-500 font-semibold px-4 py-2 rounded-xl text-xs text-white cursor-pointer transition-colors shadow-md font-display"
+                          className="bg-teal-500 hover:bg-teal-400 font-semibold px-4 py-2 rounded-xl text-xs text-white cursor-pointer transition-colors shadow-md font-display"
                         >
                           Save Attachment Settings
                         </button>
@@ -2364,7 +2322,7 @@ export default function App() {
               >
                 
                 {/* QUEUE CONTROLLER BAR */}
-                <div className="bg-[#0e1626] border border-slate-800 p-6 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6">
+                <div className="bg-black/40 backdrop-blur-md border border-teal-900/30 p-6 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6">
                   <div>
                     <h3 className="text-lg font-bold text-white m-0 tracking-tight font-display">Intentional Outreach Batch Runner</h3>
                     <p className="text-xs text-slate-400 mt-1 max-w-xl">
@@ -2387,9 +2345,9 @@ export default function App() {
                       <button
                         onClick={runSequentialBatchOutreach}
                         disabled={totalPending === 0}
-                        className="flex items-center gap-2 py-3 px-6 bg-indigo-600 hover:bg-indigo-500 border border-indigo-500 text-white rounded-xl text-xs font-bold uppercase tracking-widest cursor-pointer hover:scale-[1.01] active:scale-[0.98] transition-transform disabled:opacity-50"
+                        className="flex items-center gap-2 py-3 px-6 bg-teal-500 hover:bg-teal-400 border border-teal-400 text-white rounded-xl text-xs font-bold uppercase tracking-widest cursor-pointer hover:scale-[1.01] active:scale-[0.98] transition-transform disabled:opacity-50"
                       >
-                        <Play className="w-4 h-4 fill-current text-indigo-300" /> Start Campaign Loop
+                        <Play className="w-4 h-4 fill-current text-teal-300" /> Start Campaign Loop
                       </button>
                     )}
                   </div>
@@ -2397,7 +2355,7 @@ export default function App() {
 
                 {/* PROGRESS METRIC CARD */}
                 {runnerStatus !== "idle" && (
-                  <div className="bg-[#0d1626]/40 border border-slate-800/80 p-5 rounded-2xl grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                  <div className="bg-black/30 border border-teal-900/30 p-5 rounded-2xl grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
                     <div>
                       <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider font-mono">Outreach Progress</span>
                       <div className="text-2xl font-extrabold text-white mt-1">
@@ -2414,9 +2372,9 @@ export default function App() {
                           {Math.round((runnerProgressCurrent / (runnerProgressTotal || 1)) * 100)}%
                         </span>
                       </div>
-                      <div className="w-full bg-slate-900 rounded-full h-2.5 overflow-hidden">
+                      <div className="w-full bg-teal-950/40 rounded-full h-2.5 overflow-hidden">
                         <div
-                          className="bg-indigo-500 h-full rounded-full transition-all duration-300"
+                          className="bg-teal-500 h-full rounded-full transition-all duration-300"
                           style={{ width: `${(runnerProgressCurrent / (runnerProgressTotal || 1)) * 100}%` }}
                         />
                       </div>
@@ -2425,10 +2383,10 @@ export default function App() {
                 )}
 
                 {/* BATCH ENGINE LOGS TERMINAL FEED */}
-                <div className="flex-1 bg-[#050810] border border-slate-800 rounded-2xl flex flex-col overflow-hidden font-mono shadow-2xl relative">
-                  <div className="p-3 bg-[#0c1221] border-b border-indigo-900/30 flex items-center justify-between">
+                <div className="flex-1 bg-[#030a0d] border border-teal-900/30 rounded-2xl flex flex-col overflow-hidden font-mono shadow-2xl relative">
+                  <div className="p-3 bg-[#0c1221] border-b border-teal-900/30 flex items-center justify-between">
                     <div className="flex items-center gap-2 text-xs font-bold text-slate-300">
-                      <Terminal className="w-4 h-4 text-indigo-400 animate-pulse" />
+                      <Terminal className="w-4 h-4 text-teal-400 animate-pulse" />
                       <span>Agent Sequence Logs Telemetry</span>
                     </div>
 
@@ -2442,8 +2400,8 @@ export default function App() {
 
                   <div className="flex-1 p-5 overflow-y-auto space-y-2 text-xs leading-relaxed">
                     {runnerLogs.map((log) => {
-                      let tagClass = "text-indigo-400";
-                      let bgClass = "bg-indigo-950/20";
+                      let tagClass = "text-teal-400";
+                      let bgClass = "bg-teal-950/20";
                       if (log.type === "research") { tagClass = "text-blue-400"; bgClass = "bg-blue-950/20"; }
                       if (log.type === "draft") { tagClass = "text-purple-400"; bgClass = "bg-purple-950/20"; }
                       if (log.type === "success") { tagClass = "text-green-400"; bgClass = "bg-green-950/20"; }
@@ -2472,12 +2430,12 @@ export default function App() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.15 }}
-                className="flex-1 flex flex-col lg:flex-row overflow-hidden bg-[#080d19]"
+                className="flex-1 flex flex-col lg:flex-row overflow-hidden bg-transparent"
               >
                 {/* LEFT CONTEXT PANEL */}
                 <div className="w-full lg:w-96 border-r border-[#152035] p-6 space-y-6 overflow-y-auto flex flex-col shrink-0">
                   <div className="space-y-1">
-                    <span className="px-2.5 py-0.5 text-[9px] font-bold font-mono tracking-wider text-indigo-300 bg-indigo-950/50 border border-indigo-700/30 rounded-full">
+                    <span className="px-2.5 py-0.5 text-[9px] font-bold font-mono tracking-wider text-teal-300 bg-teal-950/40 border border-teal-700/30 rounded-full">
                       INBOUND MARKETING BOT
                     </span>
                     <h3 className="text-lg font-bold font-display text-white m-0 font-sans tracking-tight">Campaign Grounding Settings</h3>
@@ -2490,9 +2448,9 @@ export default function App() {
                     <div className="space-y-5 flex-1 flex flex-col justify-between">
                       <div className="space-y-5">
                         {/* Active Grounding Parameters Card */}
-                        <div className="p-4 bg-[#0d1627] border border-slate-800 rounded-xl space-y-3">
-                          <div className="flex items-center gap-2 border-b border-slate-850 pb-2 mb-2">
-                            <Sliders className="w-4 h-4 text-indigo-400" />
+                        <div className="p-4 bg-black/40 border border-teal-900/30 rounded-xl space-y-3">
+                          <div className="flex items-center gap-2 border-b border-teal-900/30 pb-2 mb-2">
+                            <Sliders className="w-4 h-4 text-teal-400" />
                             <span className="text-xs font-bold text-slate-300 font-mono uppercase tracking-wider">Dynamic Parameters</span>
                           </div>
                           <div className="space-y-2 text-xs">
@@ -2524,12 +2482,12 @@ export default function App() {
                               onClick={() => setBotPersona("professional")}
                               className={`p-2.5 rounded-xl text-left border transition-all cursor-pointer ${
                                 botPersona === "professional"
-                                  ? "bg-indigo-650/15 border-indigo-500 text-white"
-                                  : "bg-[#0d1627]/60 border-slate-800 text-slate-400 hover:border-slate-700"
+                                  ? "bg-teal-500/15 border-teal-500 text-white"
+                                  : "bg-black/30 border-teal-900/40 text-slate-400 hover:border-teal-700/50"
                               }`}
                             >
                               <div className="flex items-center gap-2 text-xs font-bold font-sans">
-                                <span className={botPersona === "professional" ? "text-indigo-400 animate-pulse" : "text-slate-500"}>●</span>
+                                <span className={botPersona === "professional" ? "text-teal-400 animate-pulse" : "text-slate-500"}>●</span>
                                 Professional Rep
                               </div>
                               <p className="text-[10px] text-slate-400 mt-0.5 ml-3 font-sans leading-relaxed">
@@ -2542,12 +2500,12 @@ export default function App() {
                               onClick={() => setBotPersona("persuasive")}
                               className={`p-2.5 rounded-xl text-left border transition-all cursor-pointer ${
                                 botPersona === "persuasive"
-                                  ? "bg-indigo-650/15 border-indigo-505 text-white"
-                                  : "bg-[#0d1627]/60 border-slate-800 text-slate-400 hover:border-slate-700"
+                                  ? "bg-teal-500/15 border-teal-500/50 text-white"
+                                  : "bg-black/30 border-teal-900/40 text-slate-400 hover:border-teal-700/50"
                               }`}
                             >
                               <div className="flex items-center gap-2 text-xs font-bold font-sans">
-                                <span className={botPersona === "persuasive" ? "text-indigo-400 animate-pulse" : "text-slate-500"}>●</span>
+                                <span className={botPersona === "persuasive" ? "text-teal-400 animate-pulse" : "text-slate-500"}>●</span>
                                 Persuasive Closer
                               </div>
                               <p className="text-[10px] text-slate-400 mt-0.5 ml-3 font-sans leading-relaxed">
@@ -2560,12 +2518,12 @@ export default function App() {
                               onClick={() => setBotPersona("advisor")}
                               className={`p-2.5 rounded-xl text-left border transition-all cursor-pointer ${
                                 botPersona === "advisor"
-                                  ? "bg-indigo-650/15 border-indigo-505 text-white"
-                                  : "bg-[#0d1627]/60 border-slate-800 text-slate-400 hover:border-slate-700"
+                                  ? "bg-teal-500/15 border-teal-500/50 text-white"
+                                  : "bg-black/30 border-teal-900/40 text-slate-400 hover:border-teal-700/50"
                               }`}
                             >
                               <div className="flex items-center gap-2 text-xs font-bold font-sans">
-                                <span className={botPersona === "advisor" ? "text-indigo-400 animate-pulse" : "text-slate-500"}>●</span>
+                                <span className={botPersona === "advisor" ? "text-teal-400 animate-pulse" : "text-slate-500"}>●</span>
                                 Technical Product Advisor
                               </div>
                               <p className="text-[10px] text-slate-400 mt-0.5 ml-3 font-sans leading-relaxed">
@@ -2577,7 +2535,7 @@ export default function App() {
                       </div>
 
                       {/* Qualified Leads live telemetry */}
-                      <div className="border-t border-slate-800/85 pt-4 space-y-3 mt-4">
+                      <div className="border-t border-teal-900/30 pt-4 space-y-3 mt-4">
                         <div className="flex items-center justify-between">
                           <span className="text-[10px] font-bold text-slate-400 font-mono uppercase tracking-wider block">Inbound Captured Leads</span>
                           <span className="px-1.5 py-0.5 text-[9px] font-mono text-emerald-400 border border-emerald-500/20 bg-emerald-950/20 rounded-full animate-pulse">
@@ -2586,7 +2544,7 @@ export default function App() {
                         </div>
 
                         {leads.filter(l => l.category === "Qualified by AI Bot").length === 0 ? (
-                          <div className="p-4 border border-dashed border-slate-800 rounded-xl text-center text-slate-500 bg-[#070c17]">
+                          <div className="p-4 border border-dashed border-teal-900/30 rounded-xl text-center text-slate-500 bg-black/20">
                             <Bot className="w-5 h-5 mx-auto text-slate-700 mb-2" />
                             <p className="text-[10px] font-sans m-0">No chatbot leads captured yet.</p>
                             <p className="text-[9px] text-slate-500 font-sans mt-0.5">Use the chat sandbox on the right and type in your contact details to qualify!</p>
@@ -2608,7 +2566,7 @@ export default function App() {
 
                     </div>
                   ) : (
-                    <div className="p-4 border border-dashed border-slate-800 rounded-xl text-center text-slate-500">
+                    <div className="p-4 border border-dashed border-teal-900/30 rounded-xl text-center text-slate-500">
                       <Sliders className="w-8 h-8 mx-auto text-slate-700 mb-2" />
                       <p className="text-xs">No active campaign context loaded.</p>
                     </div>
@@ -2636,19 +2594,19 @@ export default function App() {
                     )}
                   </AnimatePresence>
 
-                  <div className="flex-1 bg-[#0a101f] border border-slate-800 rounded-3xl overflow-hidden flex flex-col justify-between shadow-2xl relative">
+                  <div className="flex-1 bg-black/50 backdrop-blur-md border border-teal-900/30 rounded-3xl overflow-hidden flex flex-col justify-between shadow-2xl relative">
                     
                     {/* WIDGET HEADER */}
                     <div className="p-4 bg-gradient-to-r from-[#121c32] to-[#0a1122] border-b border-[#141e33] flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <div className="p-2.5 bg-indigo-900/30 border border-indigo-700/50 rounded-2xl relative shrink-0">
-                          <Bot className="w-5 h-5 text-indigo-400" />
+                        <div className="p-2.5 bg-teal-900/30 border border-teal-700/40 rounded-2xl relative shrink-0">
+                          <Bot className="w-5 h-5 text-teal-400" />
                           <span className="absolute bottom-0 right-0 w-2 h-2 bg-emerald-500 border border-[#121c32] rounded-full" />
                         </div>
                         <div>
                           <div className="text-xs font-bold text-white flex items-center gap-1.5 font-sans">
                             {activeCampaign?.variables?.organization || "Inbound AI Assistant"} 
-                            <span className="text-[8px] font-mono uppercase tracking-wider text-indigo-300 bg-indigo-950/45 border border-indigo-700/20 px-1 py-0.5 rounded">Campaign Agency</span>
+                            <span className="text-[8px] font-mono uppercase tracking-wider text-teal-300 bg-teal-950/35 border border-teal-700/20 px-1 py-0.5 rounded">Campaign Agency</span>
                           </div>
                           <div className="text-[10px] text-slate-400 font-sans flex items-center gap-1">
                             <span>Answers questions & qualifies prospects automatically</span>
@@ -2667,9 +2625,9 @@ export default function App() {
                     <div className="flex-1 p-5 overflow-y-auto space-y-4 flex flex-col">
                       
                       {/* SIMULATION GUIDANCE TRIGGER */}
-                      <div className="p-3.5 bg-[#0e1627] border border-indigo-505/20 rounded-xl flex items-center justify-between gap-4">
+                      <div className="p-3.5 bg-teal-950/20 border border-teal-500/20 rounded-xl flex items-center justify-between gap-4">
                         <div className="flex items-center gap-2.5">
-                          <Sparkles className="w-4 h-4 text-indigo-400 shrink-0" />
+                          <Sparkles className="w-4 h-4 text-teal-400 shrink-0" />
                           <p className="text-[10px] text-slate-300 leading-normal m-0">
                             <strong>Interactive Demo:</strong> Say you want to collaborate and leave a contact email to see the automated Firestore capture pipeline run live!
                           </p>
@@ -2677,7 +2635,7 @@ export default function App() {
                         <button
                           type="button"
                           onClick={() => setUserChatInput("Hi! I'm David, partnership manager at PeakSaaS. We need custom support tools. Send details to d.vance@peaksaas-pro.com please!")}
-                          className="py-1.5 px-3 bg-indigo-600 hover:bg-indigo-500 text-white font-mono text-[9px] uppercase tracking-wider rounded-lg transition-all shrink-0 cursor-pointer border-none"
+                          className="py-1.5 px-3 bg-teal-500 hover:bg-teal-400 text-white font-mono text-[9px] uppercase tracking-wider rounded-lg transition-all shrink-0 cursor-pointer border-none"
                         >
                           Auto-Simulate Contact Info
                         </button>
@@ -2690,7 +2648,7 @@ export default function App() {
                             className={`flex items-start gap-3 ${msg.role === "visitor" ? "justify-end" : "justify-start"}`}
                           >
                             {msg.role === "bot" && (
-                              <div className="p-1.5 bg-[#121c32] border border-indigo-850 rounded-lg text-indigo-400 shrink-0 mt-0.5">
+                              <div className="p-1.5 bg-[#121c32] border border-teal-900/40 rounded-lg text-teal-400 shrink-0 mt-0.5">
                                 <Bot className="w-3.5 h-3.5" />
                               </div>
                             )}
@@ -2698,8 +2656,8 @@ export default function App() {
                             <div
                               className={`p-3 max-w-[80%] rounded-2xl text-xs space-y-1 block ${
                                 msg.role === "visitor"
-                                  ? "bg-indigo-600 text-white rounded-tr-none shadow-md"
-                                  : "bg-[#0f1628] border border-slate-800 text-slate-200 rounded-tl-none leading-relaxed"
+                                  ? "bg-teal-600 text-white rounded-tr-none shadow-md"
+                                  : "bg-black/50 border border-teal-900/30 text-slate-200 rounded-tl-none leading-relaxed"
                               }`}
                             >
                               <p className="m-0 leading-relaxed max-w-full break-words whitespace-pre-line">{msg.text}</p>
@@ -2710,13 +2668,13 @@ export default function App() {
 
                         {isBotTyping && (
                           <div className="flex items-start gap-3 justify-start">
-                            <div className="p-1.5 bg-[#121c32] border border-indigo-850 rounded-lg text-indigo-400 shrink-0 mt-0.5">
+                            <div className="p-1.5 bg-[#121c32] border border-teal-900/40 rounded-lg text-teal-400 shrink-0 mt-0.5">
                               <Bot className="w-3.5 h-3.5" />
                             </div>
-                            <div className="p-3 bg-[#0f1628] border border-slate-800 rounded-2xl rounded-tl-none flex items-center gap-1.5">
-                              <span className="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-bounce shrink-0" />
-                              <span className="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-bounce shrink-0" style={{ animationDelay: "150ms" }} />
-                              <span className="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-bounce shrink-0" style={{ animationDelay: "300ms" }} />
+                            <div className="p-3 bg-black/50 border border-teal-900/30 rounded-2xl rounded-tl-none flex items-center gap-1.5">
+                              <span className="w-1.5 h-1.5 bg-teal-400 rounded-full animate-bounce shrink-0" />
+                              <span className="w-1.5 h-1.5 bg-teal-400 rounded-full animate-bounce shrink-0" style={{ animationDelay: "150ms" }} />
+                              <span className="w-1.5 h-1.5 bg-teal-400 rounded-full animate-bounce shrink-0" style={{ animationDelay: "300ms" }} />
                             </div>
                           </div>
                         )}
@@ -2724,17 +2682,17 @@ export default function App() {
                     </div>
 
                     {/* CHAT WIDGET INPUT ROW */}
-                    <form onSubmit={handleSendBotMessage} className="p-4 bg-[#0a1122]/90 border-t border-slate-800/80 flex gap-2">
+                    <form onSubmit={handleSendBotMessage} className="p-4 bg-black/60 border-t border-teal-900/30 flex gap-2">
                       <input
                         type="text"
                         placeholder="Ask about collaborations or type your contact email to qualify..."
                         value={userChatInput}
                         onChange={(e) => setUserChatInput(e.target.value)}
-                        className="flex-1 bg-[#101827] border border-slate-800 text-white rounded-xl py-3 px-4 text-xs focus:outline-none focus:border-indigo-505 placeholder-slate-500"
+                        className="flex-1 bg-black/40 border border-teal-900/40 text-white rounded-xl py-3 px-4 text-xs focus:outline-none focus:border-teal-500/60 placeholder-slate-600"
                       />
                       <button
                         type="submit"
-                        className="p-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl transition-all flex items-center justify-center shrink-0 cursor-pointer"
+                        className="p-3 bg-teal-500 hover:bg-teal-400 text-white rounded-xl transition-all flex items-center justify-center shrink-0 cursor-pointer"
                       >
                         <Send className="w-4 h-4" />
                       </button>
@@ -2751,18 +2709,18 @@ export default function App() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.15 }}
-                className="flex-1 flex flex-col overflow-y-auto p-6 space-y-6 bg-[#080d1a]"
+                className="flex-1 flex flex-col overflow-y-auto p-6 space-y-6 bg-transparent"
               >
                 {/* HERO INTEGRATION HEADER */}
-                <div className="relative overflow-hidden bg-gradient-to-br from-[#121a32] to-[#0f1527] border border-indigo-500/20 p-6 sm:p-8 rounded-3xl shadow-xl">
-                  <div className="absolute top-0 right-0 p-8 text-indigo-500/10 select-none pointer-events-none">
+                <div className="relative overflow-hidden bg-gradient-to-br from-[#071714] to-[#061210] border border-teal-500/20 p-6 sm:p-8 rounded-3xl shadow-xl">
+                  <div className="absolute top-0 right-0 p-8 text-teal-500/10 select-none pointer-events-none">
                     <Trophy className="w-48 h-48 rotate-12" />
                   </div>
                   
                   <div className="relative z-10 space-y-4">
                     <div className="flex flex-wrap items-center gap-3">
-                      <span className="px-3 py-1 text-[10px] font-bold font-mono uppercase tracking-widest text-indigo-300 bg-indigo-900/40 border border-indigo-700/50 rounded-full flex items-center gap-1">
-                        <Award className="w-3.5 h-3.5 text-indigo-400 animate-bounce" /> Live Hackathon Integration
+                      <span className="px-3 py-1 text-[10px] font-bold font-mono uppercase tracking-widest text-teal-300 bg-teal-900/40 border border-teal-700/40 rounded-full flex items-center gap-1">
+                        <Award className="w-3.5 h-3.5 text-teal-400 animate-bounce" /> Live Hackathon Integration
                       </span>
                       <span className="px-3 py-1 text-[10px] font-bold font-mono uppercase tracking-widest text-cyan-300 bg-cyan-950/40 border border-cyan-800/40 rounded-full flex items-center gap-1">
                         <Calendar className="w-3.5 h-3.5 text-cyan-400" /> Deadline: July 4, 2026
@@ -2771,7 +2729,7 @@ export default function App() {
 
                     <div className="space-y-1">
                       <h2 className="text-3xl font-extrabold text-white tracking-tight font-display m-0">
-                        FlowZint AI Hackathon <span className="text-indigo-400 font-light">2026</span>
+                        FlowZint AI Hackathon <span className="text-teal-400 font-light">2026</span>
                       </h2>
                       <p className="text-slate-400 text-sm max-w-2xl m-0 leading-relaxed">
                         Pioneering the future of Conversational Agents. Secure corporate pilot testers, deflect support ticks, trigger interactive sales, and claim prizes from the <strong>₹3,00,000 INR</strong> pool.
@@ -2782,7 +2740,7 @@ export default function App() {
                       <button
                         onClick={handleCreateFlowZintCampaign}
                         disabled={isSeedingFlowZint}
-                        className="flex items-center gap-2 py-3 px-6 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-lg hover:shadow-indigo-500/10 cursor-pointer disabled:opacity-50"
+                        className="flex items-center gap-2 py-3 px-6 bg-teal-500 hover:bg-teal-400 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-lg hover:shadow-teal-500/10 cursor-pointer disabled:opacity-50"
                       >
                         {isSeedingFlowZint ? (
                           <>
@@ -2801,7 +2759,7 @@ export default function App() {
                         href="https://flowzint.in/2026/ai/hackothon/"
                         target="_blank"
                         rel="referrer"
-                        className="flex items-center gap-2 py-3 px-6 bg-slate-800 hover:bg-slate-700 text-white border border-slate-750 text-xs font-bold uppercase tracking-wider rounded-xl transition-all cursor-pointer no-underline"
+                        className="flex items-center gap-2 py-3 px-6 bg-white/[0.05] hover:bg-white/[0.1] text-white border border-teal-900/30 text-xs font-bold uppercase tracking-wider rounded-xl transition-all cursor-pointer no-underline"
                       >
                         <Globe className="w-4 h-4 text-slate-300" />
                         <span>FlowZint Submission Portal</span>
@@ -2815,10 +2773,10 @@ export default function App() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                   
                   {/* BENTO BOX 1: REWARDS & RECOGNITION */}
-                  <div className="lg:col-span-2 bg-[#0e1626]/80 border border-slate-800/80 p-6 rounded-2xl relative shadow-md flex flex-col justify-between">
+                  <div className="lg:col-span-2 bg-black/40 backdrop-blur-md border border-teal-900/30 p-6 rounded-2xl relative shadow-md flex flex-col justify-between">
                     <div>
-                      <div className="flex items-center gap-2 border-b border-slate-800/60 pb-3 mb-4">
-                        <Gift className="w-5 h-5 text-indigo-400" />
+                      <div className="flex items-center gap-2 border-b border-teal-900/30 pb-3 mb-4">
+                        <Gift className="w-5 h-5 text-teal-400" />
                         <h3 className="text-sm font-semibold text-slate-200 uppercase tracking-wider font-mono m-0">Rewards & Recognition</h3>
                       </div>
                       
@@ -2836,9 +2794,9 @@ export default function App() {
                           <span className="text-[10px] font-mono text-yellow-405 font-bold border border-yellow-500/20 px-2 py-0.5 rounded bg-yellow-950/20">20k Credits</span>
                         </div>
 
-                        <div className="p-4 bg-slate-900/60 border border-slate-800 rounded-xl flex items-center justify-between gap-4">
+                        <div className="p-4 bg-black/30 border border-teal-900/30 rounded-xl flex items-center justify-between gap-4">
                           <div className="flex items-center gap-3">
-                            <div className="p-2 bg-slate-800 rounded-xl border border-slate-700 text-slate-300">
+                            <div className="p-2 bg-teal-900/30 rounded-xl border border-teal-700/30 text-teal-300">
                               <Trophy className="w-5 h-5" />
                             </div>
                             <div>
@@ -2846,7 +2804,7 @@ export default function App() {
                               <div className="text-sm font-medium text-slate-300 font-sans">₹1,00,000 Cash + Pre-Placement Interview</div>
                             </div>
                           </div>
-                          <span className="text-[10px] font-mono text-slate-400 font-bold border border-slate-850 px-2 py-0.5 rounded bg-slate-900">20k Credits</span>
+                          <span className="text-[10px] font-mono text-slate-400 font-bold border border-teal-900/40 px-2 py-0.5 rounded bg-black/40">20k Credits</span>
                         </div>
 
                         <div className="p-4 bg-orange-950/10 border border-orange-900/20 rounded-xl flex items-center justify-between gap-4">
@@ -2864,22 +2822,22 @@ export default function App() {
                       </div>
                     </div>
 
-                    <div className="mt-4 pt-3 border-t border-slate-800/60 flex items-center justify-between text-xs text-slate-400 font-mono">
+                    <div className="mt-4 pt-3 border-t border-teal-900/30 flex items-center justify-between text-xs text-slate-400 font-mono">
                       <span>• Verified Certificate for all valid entries</span>
-                      <span className="text-indigo-400 font-bold">5,000 FlowZint Credits</span>
+                      <span className="text-teal-400 font-bold">5,000 FlowZint Credits</span>
                     </div>
                   </div>
 
                   {/* BENTO BOX 2: TIMELINE TIMESTAMPS */}
-                  <div className="bg-[#0e1626]/80 border border-slate-800/80 p-6 rounded-2xl shadow-md flex flex-col justify-between">
+                  <div className="bg-black/40 backdrop-blur-md border border-teal-900/30 p-6 rounded-2xl shadow-md flex flex-col justify-between">
                     <div>
-                      <div className="flex items-center gap-2 border-b border-slate-800/60 pb-3 mb-4">
-                        <Calendar className="w-5 h-5 text-indigo-400" />
+                      <div className="flex items-center gap-2 border-b border-teal-900/30 pb-3 mb-4">
+                        <Calendar className="w-5 h-5 text-teal-400" />
                         <h3 className="text-sm font-semibold text-slate-200 uppercase tracking-wider font-mono m-0">Stages & Timelines</h3>
                       </div>
 
                       <div className="space-y-4">
-                        <div className="flex items-start gap-3 relative pb-4 border-l border-slate-800 ml-3">
+                        <div className="flex items-start gap-3 relative pb-4 border-l border-teal-900/30 ml-3">
                           <span className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-slate-700" />
                           <div className="pl-4">
                             <div className="text-xs font-bold text-slate-400 font-mono">15 May 2026, 12:00 AM</div>
@@ -2887,7 +2845,7 @@ export default function App() {
                           </div>
                         </div>
 
-                        <div className="flex items-start gap-3 relative pb-4 border-l border-slate-800 ml-3">
+                        <div className="flex items-start gap-3 relative pb-4 border-l border-teal-900/30 ml-3">
                           <span className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-[#ef4444]" />
                           <div className="pl-4">
                             <div className="text-xs font-bold text-red-400 font-mono">07 Jun 2026, 12:00 AM</div>
@@ -2906,8 +2864,8 @@ export default function App() {
                       </div>
                     </div>
 
-                    <div className="mt-6 p-3 bg-indigo-950/25 border border-indigo-900/30 rounded-xl text-center">
-                      <span className="text-xs text-indigo-300 font-mono">
+                    <div className="mt-6 p-3 bg-teal-950/20 border border-teal-900/30 rounded-xl text-center">
+                      <span className="text-xs text-teal-300 font-mono">
                         Submission portal is currently active!
                       </span>
                     </div>
@@ -2919,29 +2877,29 @@ export default function App() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   
                   {/* BENTO BOX 3: SUBMISSION TRACKS */}
-                  <div className="bg-[#0e1626]/80 border border-slate-800/80 p-6 rounded-2xl shadow-md">
-                    <div className="flex items-center gap-2 border-b border-slate-800/60 pb-3 mb-4">
-                      <TrendingUp className="w-5 h-5 text-indigo-400" />
+                  <div className="bg-black/40 backdrop-blur-md border border-teal-900/30 p-6 rounded-2xl shadow-md">
+                    <div className="flex items-center gap-2 border-b border-teal-900/30 pb-3 mb-4">
+                      <TrendingUp className="w-5 h-5 text-teal-400" />
                       <h3 className="text-sm font-semibold text-slate-200 uppercase tracking-wider font-mono m-0">Submission tracks</h3>
                     </div>
 
                     <div className="grid grid-cols-2 gap-3.5">
-                      <div className="p-3.5 bg-slate-900/60 border border-slate-800 rounded-xl space-y-1">
-                        <div className="text-xs font-bold text-indigo-400 font-mono">01. SALES BOT</div>
+                      <div className="p-3.5 bg-black/30 border border-teal-900/30 rounded-xl space-y-1">
+                        <div className="text-xs font-bold text-teal-400 font-mono">01. SALES BOT</div>
                         <p className="text-[11px] text-slate-400 leading-relaxed m-0">Conversational sales funnels, product suggestions, customer intake, lead capture, and appointment setters.</p>
                       </div>
 
-                      <div className="p-3.5 bg-slate-900/60 border border-slate-800 rounded-xl space-y-1">
+                      <div className="p-3.5 bg-black/30 border border-teal-900/30 rounded-xl space-y-1">
                         <div className="text-xs font-bold text-blue-400 font-mono">02. SUPPORT BOT</div>
                         <p className="text-[11px] text-slate-400 leading-relaxed m-0">Complimentary 24/7 technical help desks, smart order lookup, return checking, and tier-2 agent handoff.</p>
                       </div>
 
-                      <div className="p-3.5 bg-slate-900/60 border border-slate-800 rounded-xl space-y-1">
+                      <div className="p-3.5 bg-black/30 border border-teal-900/30 rounded-xl space-y-1">
                         <div className="text-xs font-bold text-purple-400 font-mono">03. CUSTOMER CARE</div>
                         <p className="text-[11px] text-slate-400 leading-relaxed m-0">Multi-agent feedback surveys, sentiment analysis triaging, post-purchase retention, and secure queries helper.</p>
                       </div>
 
-                      <div className="p-3.5 bg-slate-900/60 border border-slate-800 rounded-xl space-y-1">
+                      <div className="p-3.5 bg-black/30 border border-teal-900/30 rounded-xl space-y-1">
                         <div className="text-xs font-bold text-cyan-400 font-mono">04. OPEN INNOVATION</div>
                         <p className="text-[11px] text-slate-400 leading-relaxed m-0">Unrestrained track to solve real-world industry pain points using multi-modal embeddings or customized LLMs.</p>
                       </div>
@@ -2949,10 +2907,10 @@ export default function App() {
                   </div>
 
                   {/* BENTO BOX 4: HACKING STRATEGY Giga-brain outline */}
-                  <div className="bg-[#0e1626]/80 border border-slate-800/80 p-6 rounded-2xl shadow-md flex flex-col justify-between">
+                  <div className="bg-black/40 backdrop-blur-md border border-teal-900/30 p-6 rounded-2xl shadow-md flex flex-col justify-between">
                     <div>
-                      <div className="flex items-center gap-2 border-b border-slate-800/60 pb-3 mb-4">
-                        <Sparkles className="w-5 h-5 text-indigo-400" />
+                      <div className="flex items-center gap-2 border-b border-teal-900/30 pb-3 mb-4">
+                        <Sparkles className="w-5 h-5 text-teal-400" />
                         <h3 className="text-sm font-semibold text-slate-200 uppercase tracking-wider font-mono m-0">Outreach Traction Strategy</h3>
                       </div>
 
@@ -2984,9 +2942,9 @@ export default function App() {
                       </div>
                     </div>
 
-                    <div className="mt-5 text-[11px] text-slate-500 font-mono flex items-center justify-between border-t border-slate-800/65 pt-3">
+                    <div className="mt-5 text-[11px] text-slate-500 font-mono flex items-center justify-between border-t border-teal-900/30 pt-3">
                       <span>Helpdesk Organizer Support:</span>
-                      <a href="mailto:contact@flowzint.in" className="text-indigo-400 hover:underline">contact@flowzint.in</a>
+                      <a href="mailto:contact@flowzint.in" className="text-teal-400 hover:underline">contact@flowzint.in</a>
                     </div>
                   </div>
 
@@ -3007,11 +2965,11 @@ export default function App() {
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="bg-[#0f172a] border border-slate-800 rounded-2xl max-w-2xl w-full max-h-[90vh] flex flex-col overflow-hidden relative shadow-2xl"
+              className="bg-[#030d14] border border-teal-900/50 rounded-2xl max-w-2xl w-full max-h-[90vh] flex flex-col overflow-hidden relative shadow-2xl"
             >
-              <div className="p-4 bg-[#1e293b] border-b border-slate-800 flex items-center justify-between">
+              <div className="p-4 bg-teal-950/30 border-b border-teal-900/40 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Settings className="w-5 h-5 text-indigo-400" />
+                  <Settings className="w-5 h-5 text-teal-400" />
                   <h3 className="text-base font-bold text-slate-100 m-0 font-display">Campaign Config & Regards Signature</h3>
                 </div>
                 <button
@@ -3025,13 +2983,13 @@ export default function App() {
               <div className="flex-1 p-6 overflow-y-auto space-y-6 text-sm">
                 
                 {/* OBJECTIVE CHANGER */}
-                <div className="p-4 bg-slate-900/50 rounded-xl border border-slate-800 space-y-4">
+                <div className="p-4 bg-black/30 rounded-xl border border-teal-900/30 space-y-4">
                   <div className="space-y-1">
                     <label className="text-xs uppercase font-mono tracking-wider font-semibold text-slate-400">Campaign Outreach Objective / Theme</label>
                     <select
                       value={templateType}
                       onChange={(e) => setTemplateType(e.target.value as TemplateType)}
-                      className="w-full bg-[#121c30] border border-slate-800 rounded-xl p-2.5 text-xs text-slate-200 focus:outline-none"
+                      className="w-full bg-black/30 border border-teal-900/40 rounded-xl p-2.5 text-xs text-slate-200 focus:outline-none focus:border-teal-500/60"
                     >
                       <option value="sponsorship">Sponsorship Pitch (Request brand track funds, events exposure)</option>
                       <option value="sales">Sales Outreach (B2B workflow proposals, client demos)</option>
@@ -3042,25 +3000,25 @@ export default function App() {
                   </div>
 
                   {templateType === "custom" && (
-                    <div className="space-y-3 pt-3 border-t border-slate-800">
+                    <div className="space-y-3 pt-3 border-t border-teal-900/30">
                       <div className="space-y-1">
-                        <label className="text-xs font-mono text-indigo-400 font-semibold">Custom Subject Blueprint</label>
+                        <label className="text-xs font-mono text-teal-400 font-semibold">Custom Subject Blueprint</label>
                         <input
                           type="text"
                           placeholder="e.g. Exploring Collaboration with {{brandName}} x {{organization}}"
                           value={customTemplateSubject}
                           onChange={(e) => setCustomTemplateSubject(e.target.value)}
-                          className="w-full bg-[#070c16] border border-slate-850 rounded-lg p-2 text-xs focus:outline-none focus:border-indigo-500 text-white"
+                          className="w-full bg-black/30 border border-teal-900/40 rounded-lg p-2 text-xs focus:outline-none focus:border-teal-500/60 text-white"
                         />
                       </div>
                       <div className="space-y-1">
-                        <label className="text-xs font-mono text-indigo-400 font-semibold">Custom Body Blueprint Frame</label>
+                        <label className="text-xs font-mono text-teal-400 font-semibold">Custom Body Blueprint Frame</label>
                         <textarea
                           rows={6}
                           placeholder={`Dear {{pocName}},\n\nI am {{hostName}} from {{organization}}.\nWe noticed {{brandName}} has made incredible strides. We run {{event1Name}} and {{event2Name}} and would love to collaborate...`}
                           value={customTemplateBody}
                           onChange={(e) => setCustomTemplateBody(e.target.value)}
-                          className="w-full bg-[#070c16] border border-slate-850 rounded-lg p-2 text-xs focus:outline-none focus:border-indigo-500 text-slate-300 font-sans leading-relaxed"
+                          className="w-full bg-black/30 border border-teal-900/40 rounded-lg p-2 text-xs focus:outline-none focus:border-teal-500/60 text-slate-300 font-sans leading-relaxed"
                         />
                         <span className="text-[10px] text-slate-500 font-mono">Placeholders: {"{{brandName}}, {{pocName}}, {{hostName}}, {{organization}}, {{event1Name}}, {{event2Name}}"}</span>
                       </div>
@@ -3070,7 +3028,7 @@ export default function App() {
 
                 {/* HOST VARIABLES */}
                 <div className="space-y-4">
-                  <h4 className="text-xs font-bold uppercase tracking-wider font-mono text-slate-400 m-0 border-b border-slate-800 pb-1">Dynamic Host Details (The "Regards" signature)</h4>
+                  <h4 className="text-xs font-bold uppercase tracking-wider font-mono text-teal-400 m-0 border-b border-teal-900/30 pb-1">Dynamic Host Details (The "Regards" signature)</h4>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-1">
@@ -3079,7 +3037,7 @@ export default function App() {
                         type="text"
                         value={editHostName}
                         onChange={(e) => setEditHostName(e.target.value)}
-                        className="w-full bg-[#1e293b] border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-indigo-500"
+                        className="w-full bg-white/[0.04] border border-white/10 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-teal-500/60"
                       />
                     </div>
                     <div className="space-y-1">
@@ -3088,7 +3046,7 @@ export default function App() {
                         type="text"
                         value={editHostTitle}
                         onChange={(e) => setEditHostTitle(e.target.value)}
-                        className="w-full bg-[#1e293b] border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-indigo-500"
+                        className="w-full bg-white/[0.04] border border-white/10 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-teal-500/60"
                       />
                     </div>
                     <div className="space-y-1">
@@ -3097,7 +3055,7 @@ export default function App() {
                         type="text"
                         value={editOrganization}
                         onChange={(e) => setEditOrganization(e.target.value)}
-                        className="w-full bg-[#1e293b] border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-indigo-500"
+                        className="w-full bg-white/[0.04] border border-white/10 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-teal-500/60"
                       />
                     </div>
                     <div className="space-y-1">
@@ -3106,7 +3064,7 @@ export default function App() {
                         type="text"
                         value={editOrgDesc}
                         onChange={(e) => setEditOrgDesc(e.target.value)}
-                        className="w-full bg-[#1e293b] border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-indigo-500"
+                        className="w-full bg-white/[0.04] border border-white/10 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-teal-500/60"
                       />
                     </div>
                     <div className="space-y-1">
@@ -3115,7 +3073,7 @@ export default function App() {
                         type="text"
                         value={editPhone}
                         onChange={(e) => setEditPhone(e.target.value)}
-                        className="w-full bg-[#1e293b] border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-indigo-500"
+                        className="w-full bg-white/[0.04] border border-white/10 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-teal-500/60"
                       />
                     </div>
                     <div className="space-y-1">
@@ -3124,7 +3082,7 @@ export default function App() {
                         type="text"
                         value={editEmail}
                         onChange={(e) => setEditEmail(e.target.value)}
-                        className="w-full bg-[#1e293b] border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-indigo-500"
+                        className="w-full bg-white/[0.04] border border-white/10 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-teal-500/60"
                       />
                     </div>
                   </div>
@@ -3132,7 +3090,7 @@ export default function App() {
 
                 {/* CORE INITIATIVES/CONTEXT */}
                 <div className="space-y-4">
-                  <h4 className="text-xs font-bold uppercase tracking-wider font-mono text-slate-400 m-0 border-b border-slate-800 pb-1">Outreach Subject Initiatives</h4>
+                  <h4 className="text-xs font-bold uppercase tracking-wider font-mono text-teal-400 m-0 border-b border-teal-900/30 pb-1">Outreach Subject Initiatives</h4>
                   
                   <div className="space-y-3">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -3142,7 +3100,7 @@ export default function App() {
                           type="text"
                           value={editEvent1Name}
                           onChange={(e) => setEditEvent1Name(e.target.value)}
-                          className="w-full bg-[#1e293b] border border-slate-800 rounded-xl p-2 text-xs text-white"
+                          className="w-full bg-black/30 border border-teal-900/40 rounded-xl p-2 text-xs text-white"
                         />
                       </div>
                       <div className="space-y-1">
@@ -3151,7 +3109,7 @@ export default function App() {
                           type="text"
                           value={editEvent1Desc}
                           onChange={(e) => setEditEvent1Desc(e.target.value)}
-                          className="w-full bg-[#1e293b] border border-slate-800 rounded-xl p-2 text-xs text-white"
+                          className="w-full bg-black/30 border border-teal-900/40 rounded-xl p-2 text-xs text-white"
                         />
                       </div>
                     </div>
@@ -3163,7 +3121,7 @@ export default function App() {
                           type="text"
                           value={editEvent2Name}
                           onChange={(e) => setEditEvent2Name(e.target.value)}
-                          className="w-full bg-[#1e293b] border border-slate-800 rounded-xl p-2 text-xs text-white"
+                          className="w-full bg-black/30 border border-teal-900/40 rounded-xl p-2 text-xs text-white"
                         />
                       </div>
                       <div className="space-y-1">
@@ -3172,7 +3130,7 @@ export default function App() {
                           type="text"
                           value={editEvent2Desc}
                           onChange={(e) => setEditEvent2Desc(e.target.value)}
-                          className="w-full bg-[#1e293b] border border-slate-800 rounded-xl p-2 text-xs text-white"
+                          className="w-full bg-black/30 border border-teal-900/40 rounded-xl p-2 text-xs text-white"
                         />
                       </div>
                     </div>
@@ -3181,7 +3139,7 @@ export default function App() {
 
               </div>
 
-              <div className="p-4 bg-[#1e293b] border-t border-slate-800 flex items-center justify-end gap-3 rounded-b-2xl">
+              <div className="p-4 bg-teal-950/20 border-t border-teal-900/40 flex items-center justify-end gap-3 rounded-b-2xl">
                 <button
                   onClick={() => setShowConfigModal(false)}
                   className="px-4 py-2 text-xs font-semibold text-slate-400 bg-transparent hover:text-white border-none cursor-pointer"
@@ -3191,7 +3149,7 @@ export default function App() {
                 <button
                   id="save-campaign-config-btn"
                   onClick={handleSaveCampaignConfig}
-                  className="px-5 py-2.5 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-xl cursor-pointer"
+                  className="px-5 py-2.5 text-xs font-semibold text-white bg-teal-500 hover:bg-teal-400 rounded-xl cursor-pointer"
                 >
                   Save Campaign Core Template
                 </button>
@@ -3209,9 +3167,9 @@ export default function App() {
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="bg-[#0f172a] border border-slate-800 rounded-2xl max-w-md w-full relative shadow-2xl"
+              className="bg-[#030d14] border border-teal-900/50 rounded-2xl max-w-md w-full relative shadow-2xl"
             >
-              <div className="p-4 bg-[#1e293b] border-b border-slate-800 flex items-center justify-between rounded-t-2xl">
+              <div className="p-4 bg-teal-950/30 border-b border-teal-900/40 flex items-center justify-between rounded-t-2xl">
                 <h3 className="text-base font-bold text-slate-100 m-0 font-display">Create Private Campaign</h3>
                 <button
                   onClick={() => setShowCreateCampaignModal(false)}
@@ -3231,7 +3189,7 @@ export default function App() {
                     placeholder="e.g. graVITas 2026 Sponsorship Campaign"
                     value={newCampaignName}
                     onChange={(e) => setNewCampaignName(e.target.value)}
-                    className="w-full bg-[#1e293b] border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-indigo-500"
+                    className="w-full bg-white/[0.04] border border-white/10 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-teal-500/60"
                   />
                 </div>
 
@@ -3242,7 +3200,7 @@ export default function App() {
                     placeholder="e.g. Sponsorships targets for model sciences overnight events..."
                     value={newCampaignDesc}
                     onChange={(e) => setNewCampaignDesc(e.target.value)}
-                    className="w-full bg-[#1e293b] border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-indigo-500"
+                    className="w-full bg-white/[0.04] border border-white/10 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-teal-500/60"
                   />
                 </div>
 
@@ -3251,7 +3209,7 @@ export default function App() {
                   <select
                     value={newCampaignTemplate}
                     onChange={(e) => setNewCampaignTemplate(e.target.value as TemplateType)}
-                    className="w-full bg-[#1e293b] border border-slate-800 rounded-xl p-2.5 text-xs text-slate-200 focus:outline-none"
+                    className="w-full bg-black/30 border border-teal-900/40 rounded-xl p-2.5 text-xs text-slate-200 focus:outline-none focus:border-teal-500/60"
                   >
                     <option value="sponsorship">Sponsorship Pitch Goals</option>
                     <option value="sales">Sales Workflow Demo Prospects</option>
@@ -3261,7 +3219,7 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="p-4 bg-[#1e293b] border-t border-slate-800 flex items-center justify-end gap-3 rounded-b-2xl">
+              <div className="p-4 bg-teal-950/20 border-t border-teal-900/40 flex items-center justify-end gap-3 rounded-b-2xl">
                 <button
                   onClick={() => setShowCreateCampaignModal(false)}
                   className="px-4 py-2 text-xs font-semibold text-slate-400 bg-transparent hover:text-white border-none cursor-pointer"
@@ -3272,7 +3230,7 @@ export default function App() {
                   id="create-campaign-submit-btn"
                   onClick={handleCreateCampaign}
                   disabled={!newCampaignName.trim()}
-                  className="px-5 py-2.5 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-xl cursor-pointer disabled:opacity-50"
+                  className="px-5 py-2.5 text-xs font-semibold text-white bg-teal-500 hover:bg-teal-400 rounded-xl cursor-pointer disabled:opacity-50"
                 >
                   Launch Workspace Campaign
                 </button>
@@ -3290,9 +3248,9 @@ export default function App() {
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="bg-[#0f172a] border border-slate-800 rounded-2xl max-w-md w-full relative shadow-2xl"
+              className="bg-[#030d14] border border-teal-900/50 rounded-2xl max-w-md w-full relative shadow-2xl"
             >
-              <div className="p-4 bg-[#1e293b] border-b border-slate-800 flex items-center justify-between rounded-t-2xl">
+              <div className="p-4 bg-teal-950/30 border-b border-teal-900/40 flex items-center justify-between rounded-t-2xl">
                 <h3 className="text-base font-bold text-slate-100 m-0 font-display">Insert Lead Profile target</h3>
                 <button
                   onClick={() => setShowAddLeadModal(false)}
@@ -3312,7 +3270,7 @@ export default function App() {
                     placeholder="e.g. Fitbit Inc."
                     value={newLeadName}
                     onChange={(e) => setNewLeadName(e.target.value)}
-                    className="w-full bg-[#1e293b] border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:outline-none"
+                    className="w-full bg-black/30 border border-teal-900/40 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-teal-500/60"
                   />
                 </div>
 
@@ -3323,7 +3281,7 @@ export default function App() {
                     placeholder="e.g. James Park (or Sponsorship Coordinator)"
                     value={newLeadPoc}
                     onChange={(e) => setNewLeadPoc(e.target.value)}
-                    className="w-full bg-[#1e293b] border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:outline-none"
+                    className="w-full bg-black/30 border border-teal-900/40 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-teal-500/60"
                   />
                 </div>
 
@@ -3336,7 +3294,7 @@ export default function App() {
                     placeholder="e.g. james.p@fitbit.com"
                     value={newLeadEmail}
                     onChange={(e) => setNewLeadEmail(e.target.value)}
-                    className="w-full bg-[#1e293b] border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:outline-none"
+                    className="w-full bg-black/30 border border-teal-900/40 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-teal-500/60"
                   />
                 </div>
 
@@ -3347,7 +3305,7 @@ export default function App() {
                     placeholder="e.g. Wearable Fitness Devices"
                     value={newLeadCategory}
                     onChange={(e) => setNewLeadCategory(e.target.value)}
-                    className="w-full bg-[#1e293b] border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:outline-none"
+                    className="w-full bg-black/30 border border-teal-900/40 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-teal-500/60"
                   />
                 </div>
 
@@ -3358,12 +3316,12 @@ export default function App() {
                     placeholder="e.g. Interested in fitness integration apps."
                     value={newLeadNotes}
                     onChange={(e) => setNewLeadNotes(e.target.value)}
-                    className="w-full bg-[#1e293b] border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:outline-none"
+                    className="w-full bg-black/30 border border-teal-900/40 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-teal-500/60"
                   />
                 </div>
               </div>
 
-              <div className="p-4 bg-[#1e293b] border-t border-slate-800 flex items-center justify-end gap-3 rounded-b-2xl">
+              <div className="p-4 bg-teal-950/20 border-t border-teal-900/40 flex items-center justify-end gap-3 rounded-b-2xl">
                 <button
                   onClick={() => setShowAddLeadModal(false)}
                   className="px-4 py-2 text-xs font-semibold text-slate-400 bg-transparent hover:text-white border-none cursor-pointer"
@@ -3374,7 +3332,7 @@ export default function App() {
                   id="add-lead-submit-btn"
                   onClick={handleAddLead}
                   disabled={!newLeadName.trim() || !newLeadEmail.trim()}
-                  className="px-5 py-2.5 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-xl cursor-pointer disabled:opacity-50"
+                  className="px-5 py-2.5 text-xs font-semibold text-white bg-teal-500 hover:bg-teal-400 rounded-xl cursor-pointer disabled:opacity-50"
                 >
                   Register target
                 </button>
