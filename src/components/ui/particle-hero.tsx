@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { Loader2 } from "lucide-react"
+import { Loader as Loader2 } from "lucide-react"
 
 interface Particle {
   x: number
@@ -17,9 +17,10 @@ interface Particle {
 interface ParticleHeroProps {
   isLoggingIn: boolean;
   onLogin: () => void;
+  authError?: string | null;
 }
 
-export function ParticleHero({ isLoggingIn, onLogin }: ParticleHeroProps) {
+export function ParticleHero({ isLoggingIn, onLogin, authError }: ParticleHeroProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [isGoldMode, setIsGoldMode] = useState(false)
   const particlesRef = useRef<Particle[]>([])
@@ -482,9 +483,9 @@ export function ParticleHero({ isLoggingIn, onLogin }: ParticleHeroProps) {
         </div>
 
         {/* FULLY VISIBLE, NON-OVERLAPPED CREAM/BEIGE FLOATING NARRATIVE BOARD */}
-        <div className="scrolling-narrative-box w-full max-w-lg px-6 py-6 rounded-2xl bg-[#0a0d1b]/40 border border-indigo-500/10 backdrop-blur-md relative select-none">
+        <div className="scrolling-narrative-box w-full max-w-lg px-6 py-6 rounded-2xl bg-[#040b10]/40 border border-teal-500/10 backdrop-blur-md relative select-none">
           <div 
-            className="font-mono text-xs uppercase tracking-[0.3em] font-extrabold text-indigo-300/80 mb-2"
+            className="font-mono text-xs uppercase tracking-[0.3em] font-extrabold text-teal-300/80 mb-2"
           >
             Unified Intelligence Sandbox
           </div>
@@ -498,20 +499,41 @@ export function ParticleHero({ isLoggingIn, onLogin }: ParticleHeroProps) {
           </p>
         </div>
 
-        {/* The beautiful glassmorphic Login container */}
-        <div 
+        {/* Auth error panel */}
+        {authError && (
+          <div className="w-full bg-red-950/40 backdrop-blur-md border border-red-500/30 rounded-2xl p-5 text-left space-y-3">
+            <div className="flex items-start gap-2">
+              <span className="text-red-400 font-bold text-xs font-mono uppercase tracking-wider shrink-0 mt-0.5">Auth Error</span>
+              <span className="text-red-300 text-xs font-mono leading-relaxed">{authError}</span>
+            </div>
+            <div className="border-t border-red-500/20 pt-3 space-y-1.5">
+              <p className="text-[10px] text-slate-400 font-mono font-bold uppercase tracking-wider">Fix: Add this domain to Firebase Console</p>
+              <code className="block bg-black/40 border border-teal-900/40 rounded-lg px-3 py-2 text-[11px] text-teal-300 font-mono break-all select-all">
+                {typeof window !== "undefined" ? window.location.hostname : "your-preview-domain"}
+              </code>
+              <ol className="text-[10px] text-slate-400 font-mono space-y-1 list-decimal list-inside leading-relaxed">
+                <li>Go to Firebase Console → Authentication → Settings → Authorized domains</li>
+                <li>Click <strong className="text-slate-300">Add domain</strong> and paste the hostname above</li>
+                <li>Save and reload this page, then try signing in again</li>
+              </ol>
+            </div>
+          </div>
+        )}
+
+        {/* The glassmorphic Login container */}
+        <div
           style={{
             animation: "load 1.5s ease-out 0.8s forwards, up 1.2s ease-out 0.8s forwards",
             opacity: 0,
             transform: "translateY(1.5em)",
           }}
-          className="w-full bg-[#080d19]/80 backdrop-blur-2xl border border-slate-800/70 rounded-3xl p-8 shadow-[0_0_80px_rgba(99,102,241,0.06)] relative overflow-hidden"
+          className="w-full bg-[#040b10]/80 backdrop-blur-2xl border border-teal-900/30 rounded-3xl p-8 shadow-[0_0_80px_rgba(20,184,166,0.06)] relative overflow-hidden"
         >
           {/* Subtle interior glow effect */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/[0.03] via-transparent to-blue-500/[0.03] pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-teal-500/[0.03] via-transparent to-cyan-500/[0.03] pointer-events-none" />
 
           {/* Authorization Label */}
-          <span className="text-[10px] bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-mono font-bold tracking-[0.2em] uppercase px-3 py-1 rounded-full mb-6 inline-block">
+          <span className="text-[10px] bg-teal-500/10 border border-teal-500/20 text-teal-300 font-mono font-bold tracking-[0.2em] uppercase px-3 py-1 rounded-full mb-6 inline-block">
             Secure Auth Gateway
           </span>
 
@@ -523,7 +545,7 @@ export function ParticleHero({ isLoggingIn, onLogin }: ParticleHeroProps) {
             id="google-login-btn"
             disabled={isLoggingIn}
             onClick={onLogin}
-            className="w-full flex items-center justify-center gap-3 px-6 py-4 border border-indigo-500/20 font-bold rounded-2xl text-white bg-indigo-600 hover:bg-indigo-500 active:scale-[0.98] transition-all duration-200 cursor-pointer text-xs uppercase tracking-[0.15em] disabled:opacity-50 hover:shadow-[0_0_30px_rgba(99,102,241,0.3)] shadow-md"
+            className="w-full flex items-center justify-center gap-3 px-6 py-4 border border-teal-500/20 font-bold rounded-2xl text-white bg-teal-500 hover:bg-teal-400 active:scale-[0.98] transition-all duration-200 cursor-pointer text-xs uppercase tracking-[0.15em] disabled:opacity-50 hover:shadow-[0_0_30px_rgba(20,184,166,0.3)] shadow-md"
           >
             {isLoggingIn ? (
               <>
@@ -540,7 +562,7 @@ export function ParticleHero({ isLoggingIn, onLogin }: ParticleHeroProps) {
               </>
             )}
           </button>
-          
+
           <div className="mt-5 text-center">
             <span className="text-[9.5px] text-slate-500 font-mono tracking-wider">
               Protected by isolated Google Workspace OAuth &bull; Firestore

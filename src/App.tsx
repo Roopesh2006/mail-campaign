@@ -38,6 +38,7 @@ export default function App() {
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [needsAuth, setNeedsAuth] = useState<boolean>(true);
   const [isLoggingIn, setIsLoggingIn] = useState<boolean>(false);
+  const [authError, setAuthError] = useState<string | null>(null);
   const [isBootstrapping, setIsBootstrapping] = useState<boolean>(false);
 
   // Dynamic Campaigns list state
@@ -404,6 +405,7 @@ export default function App() {
   // Google Login popup launcher
   const triggerGoogleLogin = async () => {
     setIsLoggingIn(true);
+    setAuthError(null);
     try {
       const result = await googleSignIn();
       if (result) {
@@ -415,7 +417,16 @@ export default function App() {
       }
     } catch (err: any) {
       console.error("Google authentication popup error:", err);
-      alert(`Google sign in was terminated or blocked by iframe popup restrictions: ${err.message || err}`);
+      const code = err?.code || "";
+      if (code === "auth/unauthorized-domain" || code === "auth/invalid-action-code" || err?.message?.includes("invalid")) {
+        setAuthError(`Domain not authorized in Firebase Console (${code || "invalid-action-code"}). Follow the steps below to fix this.`);
+      } else if (code === "auth/popup-closed-by-user" || code === "auth/cancelled-popup-request") {
+        setAuthError("Sign-in popup was closed before completing. If you saw 'The requested action is invalid', your domain needs to be added to Firebase's authorized list below.");
+      } else if (code === "auth/popup-blocked") {
+        setAuthError("Popup was blocked by your browser. Allow popups for this site and try again.");
+      } else {
+        setAuthError(err?.message || "Sign-in failed. Check the console for details.");
+      }
     } finally {
       setIsLoggingIn(false);
     }
@@ -1321,7 +1332,7 @@ export default function App() {
 
   if (needsAuth) {
     return (
-      <ParticleHero isLoggingIn={isLoggingIn} onLogin={triggerGoogleLogin} />
+      <ParticleHero isLoggingIn={isLoggingIn} onLogin={triggerGoogleLogin} authError={authError} />
     );
   }
 
