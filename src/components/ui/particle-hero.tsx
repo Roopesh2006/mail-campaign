@@ -474,10 +474,10 @@ export function ParticleHero({ isLoggingIn, onLogin, authError }: ParticleHeroPr
               }}
               className="m-0 tracking-tight font-display"
             >
-              AURA<span className="font-light">PITCH</span> 360
+              MAIL <span className="font-light">CAMPAIGN</span>
             </h1>
             <p className="text-[10px] tracking-[0.3em] uppercase font-mono font-bold text-slate-500/80 mt-1 mb-0">
-              Automated Grounded Outreach Router
+              Automated Mail Outreach Router
             </p>
           </div>
         </div>
@@ -495,7 +495,7 @@ export function ParticleHero({ isLoggingIn, onLogin, authError }: ParticleHeroPr
               textShadow: "0 2px 10px rgba(251, 246, 235, 0.45)",
             }}
           >
-            AuraPitch 360 leverages Deep Search-Grounded AI brand research algorithms to generate specific benefit angles directly inside your private cloud sandbox.
+            Mail Campaign leverages Deep Search-Grounded AI brand research algorithms to generate specific benefit angles directly inside your private cloud sandbox.
           </p>
         </div>
 
@@ -572,7 +572,7 @@ export function ParticleHero({ isLoggingIn, onLogin, authError }: ParticleHeroPr
 
         <div className="text-center" style={{ opacity: 0.6 }}>
           <span className="text-[10px] text-slate-600 font-mono tracking-widest uppercase">
-            AuraPitch 360 Workspace
+            Mail Campaign Workspace
           </span>
         </div>
 

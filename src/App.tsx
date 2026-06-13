@@ -1349,8 +1349,13 @@ export default function App() {
 
   return (
     <div id="dashboard-root" className="min-h-screen bg-[#040b0f] text-slate-100 font-sans flex flex-col antialiased relative overflow-hidden">
-      {/* 3D Animated Shader Background */}
+      {/* Combined background: plasma grid base + aurora overlay */}
       <div className="absolute inset-0 z-0 pointer-events-none">
+        {/* Plasma grid lines — base layer */}
+        <div className="absolute inset-0" style={{ opacity: 0.45 }}>
+          <ShaderBackground />
+        </div>
+        {/* Aurora wave — screen-blended on top */}
         <AnimatedShaderBackground />
       </div>
 
@@ -1362,10 +1367,10 @@ export default function App() {
           </div>
           <div>
             <h1 className="text-xl font-bold font-display tracking-tight text-white m-0 flex items-center gap-2">
-              AuraPitch <span className="text-teal-400 font-normal">360</span>
+              Mail <span className="text-teal-400 font-normal">Campaign</span>
               <span className="text-[10px] bg-teal-900/40 text-teal-300 border border-teal-700/40 px-1.5 py-0.5 rounded uppercase font-mono font-bold tracking-wider">Public Engine</span>
             </h1>
-            <p className="text-xs text-slate-400 m-0">Isolated Multi-user Live Grounded Outreacher</p>
+            <p className="text-xs text-slate-400 m-0">Automated Multi-channel Mail Outreach Platform</p>
           </div>
         </div>
 
@@ -1438,7 +1443,7 @@ export default function App() {
       </header>
 
       {/* STATS STRIP */}
-      <section className="bg-black/50 px-6 py-3 border-b border-teal-900/20 backdrop-blur-md grid grid-cols-2 md:grid-cols-4 gap-4 shadow-sm relative z-10">
+      <section className="bg-black/35 px-6 py-3 border-b border-teal-900/20 backdrop-blur-sm grid grid-cols-2 md:grid-cols-4 gap-4 shadow-sm relative z-10">
         <div className="flex items-center gap-3 py-2">
           <Layers className="text-teal-400 w-4 h-4" />
           <div>
@@ -1473,10 +1478,10 @@ export default function App() {
       <div className="flex-1 flex flex-col md:flex-row overflow-hidden relative z-10">
         
         {/* LEFT COLUMN: ACTIVE COHORT MANAGES (Leads index spreadsheet) */}
-        <div className="w-full md:w-[45%] lg:w-[40%] bg-black/50 backdrop-blur-md border-r border-teal-900/20 flex flex-col overflow-hidden relative z-10">
+        <div className="w-full md:w-[45%] lg:w-[40%] bg-black/30 backdrop-blur-sm border-r border-teal-900/20 flex flex-col overflow-hidden relative z-10">
           
           {/* SEARCH, CATEGORY FILTER & VIEW TABS */}
-          <div className="p-4 bg-black/40 border-b border-white/[0.06] space-y-3">
+          <div className="p-4 bg-black/25 border-b border-white/[0.06] space-y-3">
             <div className="flex items-center justify-between">
               <h3 className="text-sm font-semibold tracking-wider uppercase font-mono text-slate-300 m-0">Directory Leads</h3>
               <div className="flex gap-1.5 bg-black/40 border border-white/[0.05] p-1 rounded-lg overflow-x-auto max-w-full shrink-0">
@@ -1645,7 +1650,7 @@ export default function App() {
         </div>
 
         {/* RIGHT COLUMN: WORKSPACE STAGES (Workspace details tab or automated queue terminal logs) */}
-        <main className="flex-1 bg-black/40 backdrop-blur-md flex flex-col overflow-hidden relative border-l border-teal-900/20">
+        <main className="flex-1 bg-black/20 backdrop-blur-sm flex flex-col overflow-hidden relative border-l border-teal-900/20">
           
           <AnimatePresence mode="wait">
             {activeTab === "database" ? (
@@ -1662,7 +1667,7 @@ export default function App() {
                     
                     {/* SUB-SECTION 1: AI BRAND GRAPH RESEARCH */}
                     <div className="w-full lg:w-[50%] flex flex-col overflow-hidden bg-transparent">
-                      <div className="p-4 bg-[#0e122d]/45 border-b border-white/[0.06] backdrop-blur-md flex items-center justify-between gap-3">
+                      <div className="p-4 bg-black/25 border-b border-teal-900/20 backdrop-blur-sm flex items-center justify-between gap-3">
                         <div className="flex items-center gap-2">
                           <Activity className="w-4 h-4 text-teal-400" />
                           <h3 className="text-sm font-semibold text-slate-200 uppercase tracking-wider font-mono m-0">
@@ -1692,11 +1697,11 @@ export default function App() {
                       <div className="flex-1 p-6 overflow-y-auto space-y-6">
                         
                         {/* HEADER DETAILS CARD */}
-                        <div className="p-4 bg-[#0a0d24]/60 backdrop-blur-md rounded-2xl border border-white/[0.05] shadow-lg">
+                        <div className="p-4 bg-black/20 backdrop-blur-md rounded-2xl border border-teal-900/20 shadow-lg">
                           <h2 className="text-xl font-bold text-white m-0 tracking-tight font-display">{selectedLead.name}</h2>
                           <div className="text-xs text-slate-400 mt-1 font-mono">Category: <span className="text-teal-400 font-semibold">{selectedLead.category}</span> | Main POC: {selectedLead.poc}</div>
                           {selectedLead.notes && (
-                            <div className="mt-3 p-3 bg-[#141b36]/40 border border-white/[0.04] rounded-xl text-xs leading-relaxed text-slate-300">
+                            <div className="mt-3 p-3 bg-teal-950/15 border border-teal-900/20 rounded-xl text-xs leading-relaxed text-slate-300">
                               <strong>Planner Remarks:</strong> {selectedLead.notes}
                             </div>
                           )}
@@ -1720,7 +1725,7 @@ export default function App() {
                                 <span className="w-1.5 h-1.5 bg-teal-500 rounded-full" />
                                 <span>1. Brand Overview</span>
                               </div>
-                              <p className="text-sm text-slate-300 leading-relaxed bg-[#121835]/40 backdrop-blur-sm p-4 border border-white/[0.04] rounded-2xl m-0 shadow-inner">
+                              <p className="text-sm text-slate-300 leading-relaxed bg-black/20 backdrop-blur-sm p-4 border border-teal-900/20 rounded-2xl m-0 shadow-inner">
                                 {selectedLead.research.about}
                               </p>
                             </div>
@@ -1733,7 +1738,7 @@ export default function App() {
                               </div>
                               <div className="grid grid-cols-1 gap-2.5">
                                 {selectedLead.research.keyOfferings.map((offering, idx) => (
-                                  <div key={idx} className="flex items-center gap-2.5 p-3 bg-[#111634]/50 rounded-xl border border-white/[0.04] backdrop-blur-sm text-xs text-slate-200 shadow-sm transition-all hover:bg-[#181f45]/60">
+                                  <div key={idx} className="flex items-center gap-2.5 p-3 bg-teal-950/15 rounded-xl border border-teal-900/20 backdrop-blur-sm text-xs text-slate-200 shadow-sm transition-all hover:bg-teal-950/25">
                                     <span className="w-5 h-5 rounded-full bg-teal-900/40 text-teal-300 flex items-center justify-center font-mono font-bold text-[10px]">{idx + 1}</span>
                                     <span>{offering}</span>
                                   </div>
@@ -1747,7 +1752,7 @@ export default function App() {
                                 <span className="w-1.5 h-1.5 bg-teal-500 rounded-full" />
                                 <span>3. Target Audience</span>
                               </div>
-                              <p className="text-sm text-slate-300 leading-relaxed bg-[#121835]/40 backdrop-blur-sm p-4 border border-white/[0.04] rounded-2xl m-0 shadow-inner">
+                              <p className="text-sm text-slate-300 leading-relaxed bg-black/20 backdrop-blur-sm p-4 border border-teal-900/20 rounded-2xl m-0 shadow-inner">
                                 {selectedLead.research.targetAudience}
                               </p>
                             </div>
@@ -1769,7 +1774,7 @@ export default function App() {
                                 <span className="w-1.5 h-1.5 bg-green-400 rounded-full" />
                                 <span>5. Tailored Benefit Mappings</span>
                               </div>
-                              <div className="p-4 bg-[#102a24]/45 border border-emerald-500/15 text-slate-200 text-sm leading-relaxed rounded-2xl backdrop-blur-sm shadow-md">
+                              <div className="p-4 bg-teal-950/20 border border-emerald-500/15 text-slate-200 text-sm leading-relaxed rounded-2xl backdrop-blur-sm shadow-md">
                                 {selectedLead.research.benefitAnalysis}
                               </div>
                             </div>
@@ -1781,7 +1786,7 @@ export default function App() {
                                   <span className="w-1.5 h-1.5 bg-teal-500 rounded-full" />
                                   <span>6. Outreach Alignment Mating</span>
                                 </div>
-                                <p className="text-sm text-slate-300 leading-relaxed bg-[#101726]/40 p-4 border border-teal-900/30 rounded-2xl m-0 shadow-inner">
+                                <p className="text-sm text-slate-300 leading-relaxed bg-black/20 backdrop-blur-sm p-4 border border-teal-900/20 rounded-2xl m-0 shadow-inner">
                                   {selectedLead.research.hackathonAlignment}
                                 </p>
                               </div>
@@ -1799,9 +1804,9 @@ export default function App() {
                     </div>
                     
                     {/* SUB-SECTION 2: DRAFT REVIEW & REAL DISPATCH TERMINAL */}
-                    <div className="w-full lg:w-[50%] flex flex-col overflow-hidden bg-teal-950/[0.04] border-l border-white/[0.04]">
+                    <div className="w-full lg:w-[50%] flex flex-col overflow-hidden bg-black/10 border-l border-teal-900/20">
                       
-                      <div className="p-4 bg-[#0e122d]/45 border-b border-white/[0.06] backdrop-blur-md flex items-center justify-between">
+                      <div className="p-4 bg-black/25 border-b border-teal-900/20 backdrop-blur-sm flex items-center justify-between">
                         <div className="flex items-center gap-2">
                           <Mail className="w-4 h-4 text-teal-400" />
                           <h3 className="text-sm font-semibold text-slate-200 uppercase tracking-wider font-mono m-0">
@@ -1935,12 +1940,9 @@ export default function App() {
 
                   </div>
                 ) : (
-                  <div className="flex-1 flex flex-col justify-center items-center text-slate-500 text-center p-8 relative overflow-hidden">
-                    <div className="absolute inset-0 opacity-20 pointer-events-none">
-                      <ShaderBackground />
-                    </div>
-                    <div className="relative z-10 flex flex-col items-center gap-3">
-                      <div className="w-16 h-16 rounded-2xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center">
+                  <div className="flex-1 flex flex-col justify-center items-center text-slate-500 text-center p-8">
+                    <div className="flex flex-col items-center gap-3">
+                      <div className="w-16 h-16 rounded-2xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center backdrop-blur-sm">
                         <Building2 className="w-8 h-8 text-teal-500/60" />
                       </div>
                       <h3 className="text-base text-slate-300 m-0 font-semibold">Workspace Empty</h3>
@@ -2395,7 +2397,7 @@ export default function App() {
 
                 {/* BATCH ENGINE LOGS TERMINAL FEED */}
                 <div className="flex-1 bg-[#030a0d] border border-teal-900/30 rounded-2xl flex flex-col overflow-hidden font-mono shadow-2xl relative">
-                  <div className="p-3 bg-[#0c1221] border-b border-teal-900/30 flex items-center justify-between">
+                  <div className="p-3 bg-black/40 border-b border-teal-900/30 flex items-center justify-between">
                     <div className="flex items-center gap-2 text-xs font-bold text-slate-300">
                       <Terminal className="w-4 h-4 text-teal-400 animate-pulse" />
                       <span>Agent Sequence Logs Telemetry</span>
